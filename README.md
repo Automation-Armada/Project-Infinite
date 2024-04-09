@@ -81,6 +81,40 @@ Instalar dependencias:
 ```bash
 npm install
 ```
+### Ayuda
+
+**Métodos Principales de Playwright**
+
+
+| Método                                       | Descripción                                                                                                      |
+|----------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| async page.goto(url[, options])              | Navega hacia la URL especificada.                                                                                 |
+| async page.click(selector[, options])         | Hace clic en un elemento que coincida con el selector dado.                                                        |
+| async page.fill(selector, value[, options])   | Rellena un campo de entrada con el valor especificado.                                                             |
+| async page.waitForSelector(selector[, options]) | Espera hasta que aparezca un selector en la página.                                                              |
+| async page.screenshot([options])             | Toma una captura de pantalla de la página.                                                                        |
+| async page.evaluate(pageFunction[, ...args])  | Ejecuta una función JavaScript en el contexto de la página y retorna el resultado.                                 |
+| async page.waitForNavigation([options])       | Espera a que la navegación de la página termine.                                                                  |
+| async page.goBack([options])                 | Navega hacia atrás en la historia de la página.                                                                   |
+| async page.goForward([options])              | Navega hacia adelante en la historia de la página.                                                                |
+| async page.reload([options])                 | Recarga la página actual.                                                                                         |
+| async page.waitForTimeout(timeout)           | Espera la cantidad de tiempo especificada en milisegundos.                                                         |
+| async page.keyboard.press(key[, options])    | Simula la presión de una tecla en el teclado.                                                                     |
+| async page.waitForFunction(pageFunction[, options[, ...args]]) | Espera a que una función JavaScript en la página devuelva un valor verdadero.                                  |
+| async page.hover(selector[, options])         | Mueve el mouse sobre un elemento que coincida con el selector dado.                                               |
+| async page.focus(selector)                   | Da foco a un elemento que coincida con el selector dado.                                                           |
+| async page.dblclick(selector[, options])     | Hace doble clic en un elemento que coincida con el selector dado.                                                  |
+| async page.selectOption(selector, values[, options]) | Selecciona opciones en un elemento `<select>` que coincidan con los valores dados.                               |
+| async page.waitForRequest(urlOrPredicate[, options]) | Espera hasta que se realice una solicitud que coincida con la URL o predicado especificado.                      |
+| async page.waitForResponse(urlOrPredicate[, options]) | Espera hasta que se reciba una respuesta que coincida con la URL o predicado especificado.                        |
+| async page.addScriptTag(options)             | Añade una etiqueta `<script>` a la página.                                                                        |
+| async page.addStyleTag(options)              | Añade una etiqueta `<style>` a la página.                                                                         |
+| async page.setContent(html[, options])       | Establece el contenido HTML de la página.                                                                         |
+| async page.evaluateHandle(pageFunction[, ...args]) | Ejecuta una función JavaScript en el contexto de la página y devuelve un objeto manipulable en el navegador.   |
+| async page.waitForFileUpload(selector[, options]) | Espera hasta que se complete una carga de archivo en un elemento de entrada de archivo.                          |
+| async page.waitForEvent(event[, predicateOrTimeout[, options]]) | Espera hasta que se emita un evento específico en la página.                                                   |
+
+
 # Diseño de Pruebas ⌨️
 
 Features:

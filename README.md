@@ -30,8 +30,8 @@ Clone the repository using the following command:
 
 ```bash
 git clone https://github.com/tu-usuario/project-infinite.git
+```bash
 
-''' bash
 
 # Navigate to the project folder:
 cd project-infinite

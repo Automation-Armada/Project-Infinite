@@ -1,4 +1,4 @@
-# Project-Infinite
+# Project-Infinite 🚀
 
 Project Infinite  es un marco de pruebas de automatización avanzado y altamente eficiente diseñado para revolucionar su proceso de pruebas. Nuestro marco está meticulosamente elaborado para optimizar el flujo de trabajo de pruebas, brindándole una experiencia sin problemas y capacidades de pruebas poderosas.
 
@@ -13,7 +13,7 @@ Potenciado por TypeScript: Utilice los beneficios de TypeScript para un código 
 
 ![Project Infinit (1)](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/cf0ffd43-6154-4071-afe2-3147e7421859)
 
-# Pre-requsitos:
+# Pre-requsitos 📝 :
 
 - Node.js: Asegúrese de tener Node.js instalado en su sistema. Puede descargarlo desde https://nodejs.org/en/download.
 - Editor de Texto: Se requiere un editor de texto para editar y gestionar sus scripts de prueba. Recomendamos usar Visual Studio Code (VSCode) para la mejor experiencia. Puede descargarlo desde https://code.visualstudio.com/.
@@ -177,6 +177,6 @@ npm run test
 ![image](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/63c1e93f-4e27-41ed-b6ca-703534605993)
 
 
-# Autor 🔧
+# Autor 🛠️
 
 Automation Armada

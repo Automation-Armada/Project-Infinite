@@ -13,7 +13,7 @@ Potenciado por TypeScript: Utilice los beneficios de TypeScript para un código 
 ![Project Infinit (2)](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/bbabdb6a-6fe0-4cd4-b59d-b76ce4abba07)
 
 
-# Pre-requsitos 📝 :
+# Requsitos 📝 :
 
 - Node.js: Asegúrese de tener Node.js instalado en su sistema. Puede descargarlo desde https://nodejs.org/en/download.
 - Editor de Texto: Se requiere un editor de texto para editar y gestionar sus scripts de prueba. Recomendamos usar Visual Studio Code (VSCode) para la mejor experiencia. Puede descargarlo desde https://code.visualstudio.com/.

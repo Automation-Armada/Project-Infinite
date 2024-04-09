@@ -23,6 +23,12 @@ Whether you're a seasoned QA engineer or just starting your automation journey, 
 
 - Node.js: Ensure you have Node.js installed on your system. You can download it from Descarga Node.js aquí. .
 - Text Editor: A text editor is required for editing and managing your test scripts. We recommend using Visual Studio Code (VSCode) for the best experience.
+## Installation
+
+Clone the repository using the following command:
+
+```bash
+git clone https://github.com/tu-usuario/project-infinite.git
 
 # Installation
 Before running the tests, ensure you have Node.js and npm installed. Then, follow these steps to set up Project Infinite:

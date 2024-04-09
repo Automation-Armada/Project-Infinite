@@ -21,27 +21,75 @@ Whether you're a seasoned QA engineer or just starting your automation journey, 
 
 # Prerequisites:
 
-- Node.js: Ensure you have Node.js installed on your system. You can download it from Descarga Node.js aquí. .
-- Text Editor: A text editor is required for editing and managing your test scripts. We recommend using Visual Studio Code (VSCode) for the best experience.
+- Node.js: Ensure you have Node.js installed on your system. You can download it from https://nodejs.org/en/download.
+- Text Editor: A text editor is required for editing and managing your test scripts. We recommend using Visual Studio Code (VSCode) for the best experience https://code.visualstudio.com/.
 
+
+# For Windows:
+
+Download Node.js:
+
+Visit the https://nodejs.org/en/download official website.
+Download the recommended version for Windows.
+Install Node.js:
+
+Run the downloaded installer.
+Follow the installation prompts, accepting the default settings.
+Node.js and npm will be installed automatically.
+Verify Installation:
+
+Open Command Prompt (CMD) or PowerShell.
+```bash
+Type node -v  # and press Enter. You should see the Node.js version installed.
+Type npm -v   # and press Enter. You should see the npm version installed.
+```
+# For Linux:
+Using Package Manager (e.g., apt or yum):
+
+Open Terminal.
+Update package lists: 
+``` sudo apt update ``` (for Debian/Ubuntu) or ``` sudo yum update ``` (for Red Hat/Fedora).
+Install Node.js and npm: ``` sudo apt install nodejs npm ``` (for Debian/Ubuntu) or ``` sudo yum install nodejs npm ``` (for Red Hat/Fedora).
+Using Node Version Manager (nvm):
+
+Open Terminal.
+Install nvm: 
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+Close and reopen Terminal to start using nvm.
+Install Node.js and npm using nvm: 
+```bash
+nvm install node
+```
+Verify Installation:
+
+Open Terminal.
+```bash
+Type node -v # and press Enter. You should see the Node.js version installed.
+Type npm -v  # and press Enter. You should see the npm version installed.
+```
 # Installation
 
-<details>
-<summary>Clone the repository</summary>
+Clone this repository:
 
 ```bash
 git clone https://github.com/tu-usuario/project-infinite.git
-</details>
-
-
-
+```
  Navigate to the project folder:
-cd project-infinite
 
-# Install dependencies:
+```bash
+ cd project-infinite
+```
+Install dependencies:
+
+```bash
 npm install
+```
+Running Tests :
 
-# Running Tests
-# To execute the tests, use the following command:
-
+```bash
 npm run test
+```
+
+![image](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/ab3a9971-833c-4aa7-aa97-8951756a8be4)

@@ -21,7 +21,7 @@ Whether you're a seasoned QA engineer or just starting your automation journey, 
 
 # Prerequisites:
 
-- Node.js: Ensure you have Node.js installed on your system. You can download it from nodejs.org.
+- Node.js: Ensure you have Node.js installed on your system. You can download it from https://nodejs.org/en/download.
 - Text Editor: A text editor is required for editing and managing your test scripts. We recommend using Visual Studio Code (VSCode) for the best experience.
 
 # Installation

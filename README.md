@@ -64,7 +64,7 @@ Abrir Terminal.
 node -v  # y presione Enter. Debería ver la versión de Node.js instalada.
 npm -v   # y presione Enter. Debería ver la versión de npm instalada.
 ```
-# Instalacion
+# Instalacion  🖥️
 
 Clonar este repository:
 
@@ -81,7 +81,7 @@ Instalar dependencias:
 ```bash
 npm install
 ```
-# Diseño de Pruebas
+# Diseño de Pruebas ⌨️
 
 Features:
 

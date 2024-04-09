@@ -26,14 +26,16 @@ Whether you're a seasoned QA engineer or just starting your automation journey, 
 
 # Installation
 
-Clone the repository using the following command:
+<details>
+<summary>Clone the repository</summary>
 
 ```bash
 git clone https://github.com/tu-usuario/project-infinite.git
-```bash
+</details>
 
 
-# Navigate to the project folder:
+
+ Navigate to the project folder:
 cd project-infinite
 
 # Install dependencies:

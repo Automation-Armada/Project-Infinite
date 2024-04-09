@@ -1,92 +1,172 @@
 # Project-Infinite
 
-Project Infinite is an advanced and highly efficient automation testing framework designed to revolutionize your testing process. Our framework is meticulously crafted to optimize the testing workflow, providing you with a seamless experience and powerful testing capabilities.
+Project Infinite  es un marco de pruebas de automatización avanzado y altamente eficiente diseñado para revolucionar su proceso de pruebas. Nuestro marco está meticulosamente elaborado para optimizar el flujo de trabajo de pruebas, brindándole una experiencia sin problemas y capacidades de pruebas poderosas.
 
-Key Features:
+Características Clave:
 
-Playwright Integration: Harness the full potential of Playwright to automate interactions with your web applications across multiple browsers.
-Cucumber Support: Write expressive and easy-to-understand test scenarios using Gherkin syntax, making collaboration between technical and non-technical team members a breeze.
-TypeScript Powered: Utilize the benefits of TypeScript for robust and maintainable code, including static typing and modern JavaScript features.
-Structured Approach: Project Infinite follows a structured folder organization, making it easy to manage your test files and configurations.
-Effortless Setup: Get up and running quickly with simple installation steps using npm.
-Why Choose Project Infinite?
+Integración de Playwright: Aproveche todo el potencial de Playwright para automatizar interacciones con sus aplicaciones web en múltiples navegadores.
 
-Simplicity: Our framework is designed with simplicity in mind, allowing you to focus on writing effective tests without unnecessary complexity.
-Flexibility: Adapt and scale your test suite effortlessly as your application evolves, thanks to the flexibility of Playwright and Cucumber.
-Reliability: With TypeScript's static typing and Playwright's robust automation capabilities, ensure reliable and consistent test execution.
-Community Support: Join a thriving community of testers and developers using Project Infinite, sharing knowledge and best practices for testing success.
-Whether you're a seasoned QA engineer or just starting your automation journey, Project Infinite empowers you to achieve comprehensive test coverage, improve productivity, and deliver high-quality software.
+Soporte de Cucumber: Escriba escenarios de prueba expresivos y fáciles de entender utilizando la sintaxis Gherkin, facilitando la colaboración entre miembros técnicos y no técnicos del equipo.
+
+Potenciado por TypeScript: Utilice los beneficios de TypeScript para un código robusto y mantenible, incluyendo tipado estático .
+
 
 ![Project Infinit (1)](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/cf0ffd43-6154-4071-afe2-3147e7421859)
 
-# Prerequisites:
+# Prerequsitos:
 
-- Node.js: Ensure you have Node.js installed on your system. You can download it from https://nodejs.org/en/download.
-- Text Editor: A text editor is required for editing and managing your test scripts. We recommend using Visual Studio Code (VSCode) for the best experience https://code.visualstudio.com/.
+- Node.js: Asegúrese de tener Node.js instalado en su sistema. Puede descargarlo desde https://nodejs.org/en/download.
+- Editor de Texto: Se requiere un editor de texto para editar y gestionar sus scripts de prueba. Recomendamos usar Visual Studio Code (VSCode) para la mejor experiencia. Puede descargarlo desde https://code.visualstudio.com/.
 
 
-# For Windows:
+# Windows:
 
-Download Node.js:
+Descargar Node.js:
 
-Visit the https://nodejs.org/en/download official website.
-Download the recommended version for Windows.
-Install Node.js:
+- Visita https://nodejs.org/en/download .
+- Descarga la version recomendada para windows .
 
-Run the downloaded installer.
-Follow the installation prompts, accepting the default settings.
-Node.js and npm will be installed automatically.
-Verify Installation:
+Instalar Node.js:
 
-Open Command Prompt (CMD) or PowerShell.
+- Ejecuta el instalador .
+- Siga las instrucciones de instalación, aceptando la configuración predeterminada.
+- Node.js y npm se instalarán automáticamente.
+Verificar la Instalación:
+- Abra el Símbolo del Sistema (CMD) o PowerShell.
 ```bash
-Type node -v  # and press Enter. You should see the Node.js version installed.
-Type npm -v   # and press Enter. You should see the npm version installed.
+node -v  # y presione Enter. Debería ver la versión de Node.js instalada.
+npm -v   # y presione Enter. Debería ver la versión de npm instalada.
 ```
-# For Linux:
-Using Package Manager (e.g., apt or yum):
+# Linux:
+Usando el Gestor de Paquetes (apt o yum):
 
-Open Terminal.
-Update package lists: 
-``` sudo apt update ``` (for Debian/Ubuntu) or ``` sudo yum update ``` (for Red Hat/Fedora).
-Install Node.js and npm: ``` sudo apt install nodejs npm ``` (for Debian/Ubuntu) or ``` sudo yum install nodejs npm ``` (for Red Hat/Fedora).
-Using Node Version Manager (nvm):
+Abra Terminal.
+Actualice las listas de paquetes:
+``` sudo apt update ``` ( Debian/Ubuntu) o ``` sudo yum update ``` ( Red Hat/Fedora).
+Instalar Node.js y npm: ``` sudo apt install nodejs npm ``` ( Debian/Ubuntu) or ``` sudo yum install nodejs npm ``` ( Red Hat/Fedora).
+Usando Node Version Manager (nvm):
 
-Open Terminal.
-Install nvm: 
+Abrir Terminal.
+
+Instale nvm: 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 ```
-Close and reopen Terminal to start using nvm.
-Install Node.js and npm using nvm: 
+Cierre y vuelva a abrir Terminal para comenzar a usar nvm.
+Instale Node.js y npm usando nvm:
 ```bash
 nvm install node
 ```
-Verify Installation:
+Verificar Instalacion:
 
-Open Terminal.
+Abrir Terminal.
 ```bash
-Type node -v # and press Enter. You should see the Node.js version installed.
-Type npm -v  # and press Enter. You should see the npm version installed.
+node -v  # y presione Enter. Debería ver la versión de Node.js instalada.
+npm -v   # y presione Enter. Debería ver la versión de npm instalada.
 ```
-# Installation
+# Instalacion
 
-Clone this repository:
+Clonar este repository:
 
 ```bash
 git clone https://github.com/tu-usuario/project-infinite.git
 ```
- Navigate to the project folder:
+ Navegar hasta la carpeta del proyecto:
 
 ```bash
  cd project-infinite
 ```
-Install dependencies:
+Instalar dependencias:
 
 ```bash
 npm install
 ```
-Running Tests :
+# Diseño de Pruebas
+
+```cucumber
+Feature: TestLogin
+ Como usuario quiero iniciar 
+ secion .
+
+Background:
+  Given El usuario abrio la url "https://sso.lirmi.dev/login"
+  Given Completa el  campo Username con "estudiante"
+  And Completa el campo password con "Contraseña"
+  When Presiona el boton "Submit" 
+  
+
+Scenario: Positive Planificacion test
+  When El usuario Presiona el boton mis planificaciones "Mis planificaciones"
+
+
+Scenario: Positive Aplicar Evaluación test
+  When El usuario Presiona el boton Aplicar Evaluacion "Aplicar evaluación"
+
+Scenario: Positive Crear Evaluación test
+  When Presiona el boton crear evaluacion "Crear evaluación"
+
+Scenario: Positive  Evaluaciones Estandarizadas test
+ When Presiona el boton evaluaciones estandarizadas "Evaluacion estandarizadas"
+
+Scenario: Positive Mis Evaluaciones test
+ When Presiona el boton mis evaluaciones "Mis evaluacions"
+
+Scenario: Positive Matrícula test
+ When Presiona el boton matricula "Matrícula"
+
+Scenario: Positive Asistencia test
+ When Presiona el boton asistencia "Asistencia"
+
+Scenario: Positive Calificaciones test
+ When Presiona el boton calificaciones "Calificaciones"
+
+Scenario: Positive Registro de Actividades test
+ When Presiona el boton registro de actividades "Registro de Actividades"
+
+Scenario: Positive Ficha de Estudiante test
+ When Presiona el boton ficha de estudiantes "Ficha de Estudiantes"
+
+ Scenario: Positive Certificados test
+ When Presiona el boton certificados "Certificados"
+
+```
+
+
+```typescript
+
+import {Given,When,Then, After} from "@cucumber/cucumber"
+import {chromium,Page,Browser } from "@playwright/test";
+
+let browser: Browser;
+let page: Page;
+
+Given('El usuario abrio la url {string}', async function (string) {
+  browser = await chromium.launch({ headless:false});
+  page = await browser.newPage();
+  await page.goto("https://sso.lirmi.dev/login"); 
+});
+
+Given('Completa el  campo Username con {string}', async function (string) {
+  const emailInput = await page.locator('//*[@id="email"]');
+  await emailInput.fill('randomname@gmail.com');
+});
+
+
+Given('Completa el campo password con {string}', async function (string) {
+  const contraseñaInput = await page.locator('//*[@id="password"]');
+  await contraseñaInput.fill('contraseña28');
+
+});
+
+
+When('Presiona el boton {string}', async function (string) {
+  const submitButton = await page.locator('//*[@id="submit"]/span[1]');
+ await submitButton.click();
+
+});
+
+```
+Correr Pruebas :
 
 ```bash
 npm run test

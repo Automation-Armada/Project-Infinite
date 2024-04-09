@@ -83,6 +83,8 @@ npm install
 ```
 # Diseño de Pruebas
 
+Features:
+
 ```cucumber
 Feature: TestLogin
  Como usuario quiero iniciar 
@@ -131,6 +133,7 @@ Scenario: Positive Ficha de Estudiante test
 
 ```
 
+Steps:
 
 ```typescript
 

@@ -10,8 +10,8 @@ Soporte de Cucumber: Escriba escenarios de prueba expresivos y fáciles de enten
 
 Potenciado por TypeScript: Utilice los beneficios de TypeScript para un código robusto y mantenible, incluyendo tipado estático .
 
+![Project Infinit (2)](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/bbabdb6a-6fe0-4cd4-b59d-b76ce4abba07)
 
-![Project Infinit (1)](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/cf0ffd43-6154-4071-afe2-3147e7421859)
 
 # Pre-requsitos 📝 :
 

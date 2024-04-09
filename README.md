@@ -212,5 +212,4 @@ npm run test
 
 
 # Autor 🛠️
-
-armadaautomationteam
+armadaautomation31@gmail.com

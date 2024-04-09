@@ -175,3 +175,8 @@ Correr Pruebas :
 npm run test
 ```
 ![image](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/63c1e93f-4e27-41ed-b6ca-703534605993)
+
+
+# Autor
+
+Automation Armada

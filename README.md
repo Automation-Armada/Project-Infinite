@@ -13,12 +13,12 @@ Potenciado por TypeScript: Utilice los beneficios de TypeScript para un código 
 ![Project Infinit (2)](https://github.com/armadaautomationteam/Project-Infinite/assets/149462281/bbabdb6a-6fe0-4cd4-b59d-b76ce4abba07)
 
 
-# Requsitos 📝 :
+# Requsitos 📝 
 
 - Node.js: Asegúrese de tener Node.js instalado en su sistema. Puede descargarlo desde https://nodejs.org/en/download.
 - Editor de Texto: Se requiere un editor de texto de peferencia.
 
-# Windows:
+# Windows
 
 Descargar Node.js:
 
@@ -36,7 +36,7 @@ Verificar la Instalación:
 node -v  # y presione Enter. Debería ver la versión de Node.js instalada.
 npm -v   # y presione Enter. Debería ver la versión de npm instalada.
 ```
-# Linux:
+# Linux
 Usando el Gestor de Paquetes (apt o yum):
 
 Abra Terminal.
@@ -113,7 +113,7 @@ npm install
 | async page.waitForFileUpload(selector[, options]) | Espera hasta que se complete una carga de archivo en un elemento de entrada de archivo.                          |
 | async page.waitForEvent(event[, predicateOrTimeout[, options]]) | Espera hasta que se emita un evento específico en la página.                                                   |
 
-# Reportes 📄 :
+# Reportes 📄 
 Project-Infinite implementa "multiple-cucumber-html-reporter"
 para generar  informes en formato HTML.
 

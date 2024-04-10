@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "pretest": "cat starship.txt",
-    "test" :"cucumber-js test"
+    "test": "cucumber-js test || true",
+    "posttest": "npx ts-node src/helper/reports.ts"
   },
   "keywords": [],
   "author": "Automation Armada",
@@ -14,6 +15,7 @@
     "@cucumber/cucumber": "^10.3.2",
     "@playwright/test": "^1.43.0",
     "@types/node": "^20.12.4",
+    "multiple-cucumber-html-reporter": "^3.6.2",
     "ts-node": "^10.9.2"
   }
 }

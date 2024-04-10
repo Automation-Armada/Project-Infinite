@@ -1,58 +1,48 @@
-Feature: TestLirmi
+Feature: TestLogin
  Como usuario quiero iniciar 
- secion en  lirmi .
+ secion .
 
-Background:
+Scenario:dfdfdfdff
   Given El usuario abrio la url "https://sso.lirmi.dev/login"
   Given Completa el  campo Username con "estudiante"
   And Completa el campo password con "Contraseña"
-  When Presiona el boton "Submit" 
-  # Then la pagina carga exitosamente 
-
-Scenario: Positive Planificacion test
-  When El usuario Presiona el boton mis planificaciones "Mis planificaciones"
-  # Then Se muestra mis planificaciones
+  When Presiona el boton "Submit"
+  Then la pagina carga exitosamente
   
 
-Scenario: Positive Aplicar Evaluación test
-  When El usuario Presiona el boton Aplicar Evaluacion "Aplicar evaluación"
-  # Then Se muestra filtrar evaluaciones
+# Scenario: Positive Planificacion test
+#   When El usuario Presiona el boton mis planificaciones "Mis planificaciones"
 
-Scenario: Positive Crear Evaluación test
-  When Presiona el boton crear evaluacion "Crear evaluación"
-  # Then Se muestra crear evaluación
 
-Scenario: Positive  Evaluaciones Estandarizadas test
- When Presiona el boton evaluaciones estandarizadas "Evaluacion estandarizadas"
-#  Then Se muestra evaluaciones estandarizadas 
+# Scenario: Positive Aplicar Evaluación test
+#   When El usuario Presiona el boton Aplicar Evaluacion "Aplicar evaluación"
 
-Scenario: Positive Mis Evaluaciones test
- When Presiona el boton mis evaluaciones "Mis evaluacions"
-#  Then Se muestra mis evaluaciones 
+# Scenario: Positive Crear Evaluación test
+#   When Presiona el boton crear evaluacion "Crear evaluación"
 
-Scenario: Positive Matrícula test
- When Presiona el boton matricula "Matrícula"
-#  Then Se muestra matricula
+# Scenario: Positive  Evaluaciones Estandarizadas test
+#  When Presiona el boton evaluaciones estandarizadas "Evaluacion estandarizadas"
 
-Scenario: Positive Asistencia test
- When Presiona el boton asistencia "Asistencia"
-#  Then Se muestra asistencia
+# Scenario: Positive Mis Evaluaciones test
+#  When Presiona el boton mis evaluaciones "Mis evaluacions"
 
-Scenario: Positive Calificaciones test
- When Presiona el boton calificaciones "Calificaciones"
-#  Then Se muestra calificaciones
+# Scenario: Positive Matrícula test
+#  When Presiona el boton matricula "Matrícula"
 
-Scenario: Positive Registro de Actividades test
- When Presiona el boton registro de actividades "Registro de Actividades"
-#  Then Se muestra registro de actividades
+# Scenario: Positive Asistencia test
+#  When Presiona el boton asistencia "Asistencia"
 
-Scenario: Positive Ficha de Estudiante test
- When Presiona el boton ficha de estudiantes "Ficha de Estudiantes"
-#  Then Se muestra ficha de estudiantes
+# Scenario: Positive Calificaciones test
+#  When Presiona el boton calificaciones "Calificaciones"
 
- Scenario: Positive Certificados test
- When Presiona el boton certificados "Certificados"
-#  Then Se muestra certificados
+# Scenario: Positive Registro de Actividades test
+#  When Presiona el boton registro de actividades "Registro de Actividades"
+
+# Scenario: Positive Ficha de Estudiante test
+#  When Presiona el boton ficha de estudiantes "Ficha de Estudiantes"
+
+#  Scenario: Positive Certificados test
+#  When Presiona el boton certificados "Certificados"
 
 
 

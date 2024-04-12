@@ -29,7 +29,7 @@ jobs:
       with:
         server_address: smtp.gmail.com
         server_port: 465
-        username: ${{ secrets.Thiago Turk }}
+        username: ${{ secrets.Thiago_Turk }}
         password: ${{ secrets.messi2024A }}
         subject: Test Report
         body: |

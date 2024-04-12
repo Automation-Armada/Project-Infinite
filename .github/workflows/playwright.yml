@@ -30,4 +30,3 @@ jobs:
       with:
         name: test-report
         path: /home/runner/work/Project-Infinite/Project-Infinite/index.html # Ruta al directorio donde se generan los reportes HTML
-        path: /home/runner/work/Project-Infinite/Project-Infinite/index.html # Ruta al directorio donde se generan los reportes HTML

@@ -29,4 +29,4 @@ jobs:
       if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
       with:
         name: test-report
-        path: /home/runner/work/Project-Infinite/Project-Infinite/index.html # Ruta al directorio donde se generan los reportes HTML
+        path: index.html

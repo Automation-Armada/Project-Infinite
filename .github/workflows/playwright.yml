@@ -24,11 +24,16 @@ jobs:
       run: npx playwright install
     - name: Run Infinite tests
       run: npm run test
-    - name: Run Playwright tests
-      run: npm run test
-    - name: Upload test report
-      uses: actions/upload-artifact@v4
-      if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
+    - name: Send email with test report
+      uses: dawidd6/action-send-mail@v3
       with:
-        name: test-report
-        path: index.html # Ruta al directorio donde se generan los reportes HTML
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{ secrets.Thiago Turk }}
+        password: ${{ secrets.messi2024A }}
+        subject: Test Report
+        body: |
+          Attached is the test report.
+        to: thiagotobiias23@gmail.com
+        from: turkthiago3@gmail.com
+        attachments: ./index.html

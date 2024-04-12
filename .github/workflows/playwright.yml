@@ -30,7 +30,7 @@ jobs:
         server_address: smtp.gmail.com
         server_port: 465
         username: ${{ secrets.Thiago_Turk }}
-        password: ${{ secrets.messi2024A }}
+        password: ${{ secrets.GMAIL_PASSWORD }}
         subject: Test Report
         body: |
           Attached is the test report.

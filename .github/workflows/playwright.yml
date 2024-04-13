@@ -30,8 +30,8 @@ jobs:
       with:
         name: test-report
         path: 
-             assets
-            features
-            test-result
-            test-results
-            index.html
+            ./assets
+            ./features
+            ./test-result
+            ./test-results
+             index.html

@@ -24,15 +24,14 @@ jobs:
       run: npx playwright install
     - name: Run Infinite tests
       run: npm run test
-    - name: Run Infinite report
-      run: npm run posttest
     - name: Upload test report
       uses: actions/upload-artifact@v4
       if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
       with:
         name: test-report
-        path: ./assets
-            ./features
-            ./test-result
-            ./test-results
+        path: 
+             assets
+            features
+            test-result
+            test-results
             index.html

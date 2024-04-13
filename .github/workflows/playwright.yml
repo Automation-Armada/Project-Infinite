@@ -1,10 +1,8 @@
-name: Infinite Tests
-
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
   test:
@@ -30,9 +28,9 @@ jobs:
 
       - name: Upload test report
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
         with:
-          name: test-report-${{ matrix.os }}
+          name: test-report-${{ matrix.os }} # Cambio en el nombre del artefacto
           path: |
             ./assets
             ./features
@@ -40,20 +38,3 @@ jobs:
             ./test-results
             index.html
 
-      - name: Send email with test report
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }} # Asegúrate de configurar este secreto en la configuración de tu repositorio
-          password: ${{ secrets.EMAIL_PASSWORD }} # Asegúrate de configurar este secreto en la configuración de tu repositorio
-          subject: Test Report
-          body: Attached is the test report.
-          to: thiagotobiias23@gmail.com
-          from: turkthiago3@gmail.com
-          attachments: |
-            ./assets/*
-            ./features/*
-            ./test-result/*
-            ./test-results/*
-            ./index.html

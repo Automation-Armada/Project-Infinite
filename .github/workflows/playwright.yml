@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
         with:
-          name: test-report
+          name: test-report-${{ matrix.os }} # Cambio en el nombre del artefacto
           path: |
             ./assets
             ./features

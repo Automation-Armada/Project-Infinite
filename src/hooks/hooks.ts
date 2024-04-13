@@ -1,10 +1,12 @@
-import { BeforeAll,AfterAll,Before,After,BeforeStep,AfterStep,Status } from "@cucumber/cucumber";
+import { BeforeAll,AfterAll,Before,After,BeforeStep,AfterStep,Status, setDefaultTimeout } from "@cucumber/cucumber";
 import { chromium,Browser,Page,expect, BrowserContext } from "@playwright/test";
 import { pageFixture } from "./pageFixture";
 
 
 let browser:Browser;
 let context: BrowserContext;
+
+setDefaultTimeout(60 * 1000);
 
 BeforeAll(async function (){
     browser = await chromium.launch({ headless:true});

@@ -26,9 +26,9 @@ jobs:
       run: npm run test
     - name: Run Infinite report
       run: npm run posttest
-    # - name: Upload test report
-    #   uses: actions/upload-artifact@v4
-    #   if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
-    #   with:
-    #     name: test-report
-    #     path: index.html
+    - name: Upload test report
+      uses: actions/upload-artifact@v4
+      if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
+      with:
+        name: test-report
+        path: ./

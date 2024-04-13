@@ -78,7 +78,7 @@ git clone https://github.com/tu-usuario/project-infinite.git
 Instalar dependencias:
 
 ```bash
-npm install
+./installProcess.sh
 ```
 ### Ayuda
 

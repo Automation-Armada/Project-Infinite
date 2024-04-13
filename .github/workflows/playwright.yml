@@ -32,4 +32,7 @@ jobs:
         path: |
             ./assets
             ./features
+            ./test-result
+            ./test-results
+            index.html
              

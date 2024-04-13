@@ -29,5 +29,5 @@ jobs:
       if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
       with:
         name: test-report
-        path: ./assets
+        path: ./assets , ./features
              

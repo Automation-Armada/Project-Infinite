@@ -41,22 +41,15 @@ jobs:
   jmeter-load-test:
     runs-on: ubuntu-latest
 
+    container:
+      image: justb4/jmeter:latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configurar Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: '8'
-
-      - name: Descargar JMeter
-        run: |
-          curl -L https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz | tar xz
-          export PATH=$PATH:$PWD/apache-jmeter-5.4.1/bin
-
       - name: Ejecutar pruebas JMeter
         run: |
-           jmeter -n -t jmeter/Login.jmx -l resultados.jtl
+          jmeter -n -t jmeter/Login.jmx -l resultados.jtl
 
       - name: Subir archivos de resultados
         uses: actions/upload-artifact@v2

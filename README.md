@@ -78,8 +78,12 @@ git clone https://github.com/tu-usuario/project-infinite.git
 Instalar dependencias:
 
 ```bash
-./installProcess.sh
+npm install 
 ```
+```bash
+npx playwright innstall 
+```
+
 ### Ayuda
 
 **Métodos Principales de Playwright**

@@ -46,7 +46,7 @@ jobs:
 
       - name: Download and Install JMeter
         run: |
-          wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.1.zip -O apache-jmeter.zip
+          Invoke-WebRequest -Uri "https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.1.zip" -OutFile "apache-jmeter.zip"
           Expand-Archive -Path apache-jmeter.zip -DestinationPath C:\jmeter
           $env:PATH += ";C:\jmeter\apache-jmeter-5.4.1\bin"
 

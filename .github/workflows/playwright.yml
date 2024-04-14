@@ -28,9 +28,9 @@ jobs:
 
       - name: Upload test report
         uses: actions/upload-artifact@v4
-        if: always() # Subir el reporte siempre, incluso si hay errores en la ejecución de las pruebas
+        if: always()
         with:
-          name: test-report-${{ matrix.os }} # Cambio en el nombre del artefacto
+          name: test-report-${{ matrix.os }}
           path: |
             ./assets
             ./features
@@ -39,16 +39,13 @@ jobs:
             index.html
 
   jmeter-load-test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+
+    container:
+      image: justb4/jmeter:latest
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Download and Install JMeter
-        run: |
-          Invoke-WebRequest -Uri "https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.1.zip" -OutFile "apache-jmeter.zip"
-          Expand-Archive -Path apache-jmeter.zip -DestinationPath C:\jmeter
-          $env:PATH += ";C:\jmeter\apache-jmeter-5.4.1\bin"
 
       - name: Ejecutar pruebas JMeter
         run: |

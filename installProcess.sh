@@ -1,6 +1,5 @@
 echo
 echo -n "Cargando... |"
-echo
 npm install & pid1=$!
 npx playwright install & pid2=$!
 
@@ -11,6 +10,5 @@ while kill -0 $pid1 &>/dev/null || kill -0 $pid2 &>/dev/null; do
 done
 
 # Mostrar carga completa cuando las instalaciones hayan terminado
-echo
 echo -e " Carga completada.\n"
 cat starship.txt

@@ -47,11 +47,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Ejecutar pruebas JMeter
+      - name: Ejecutar pruebas JMeter y generar CSV
         run: |
-          jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
-          jmeter -g resultados.jtl -o report_folder
-          ./jmeter-results.sh resultados.jtl -f csv -o resultados.csv
+          jmeter -n -t jmeter/Login.jmx -l resultados.jtl
+          jmeter -g resultados.jtl -e -o report_folder -l resultados.csv
 
       - name: Subir archivos de resultados
         uses: actions/upload-artifact@v4

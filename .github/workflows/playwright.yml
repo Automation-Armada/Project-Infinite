@@ -82,29 +82,4 @@ jobs:
             report_folder
             resultados.csv
 
-  notify-slack:
-    runs-on: ubuntu-latest
-    needs: [test, jmeter-lirmi-test]
-    steps:
-      - name: Download test report artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: test-report-ubuntu-latest
-          path: ./test-results
-
-      - name: Set up Slack webhook
-        run: echo "SLACK_WEBHOOK=https://hooks.slack.com/services/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" >> $GITHUB_ENV
-
-      - name: Send test report to Slack
-        uses: Ilshidur/action-slack@master
-        with:
-          args: |
-            Hola chicos, envío los resultados del pipeline:
-            - Test report: ${{ github.workflow }} en la rama ${{ github.ref }}
-            - Descarga: ${{ steps.download.outputs.artifacts_url }}
-          attach_files: true
-          attachments: |
-            [{
-              "title": "Artifacts",
-              "title_link": "${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts"
-            }]
+  

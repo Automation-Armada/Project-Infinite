@@ -24,7 +24,6 @@ jobs:
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
-
       - name: Install dependencies
         run: npm install
 
@@ -35,7 +34,6 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
-
       - name: Install Playwright
         run: npx playwright install
 
@@ -53,7 +51,6 @@ jobs:
             ./test-result
             ./test-results
             index.html
-
   jmeter-lirmi-test:
     runs-on: ubuntu-latest
 
@@ -67,12 +64,10 @@ jobs:
         run: |
           jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
           jmeter -g resultados.jtl -e -o report_folder
-
       - name: Generar archivo CSV desde JTL
         run: |
           echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
           awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv
-
       - name: Subir archivos de resultados
         uses: actions/upload-artifact@v4
         with:
@@ -81,5 +76,3 @@ jobs:
             resultados.jtl
             report_folder
             resultados.csv
-
-  

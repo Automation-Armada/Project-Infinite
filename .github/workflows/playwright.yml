@@ -1,8 +1,8 @@
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
   test:
@@ -49,11 +49,8 @@ jobs:
 
       - name: Ejecutar pruebas JMeter
         run: |
-          jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
-
-      - name: Generar informe HTML
-        run: |
-          java -jar JMeterPluginsCMD.jar --tool Reporter --generate-csv resultados.csv --input-jtl resultados.jtl --plugin-type AggregateReport
+          jmeter -n -t jmeter/Asistencia_mesual.jmx -l resultados.jtl
+          jmeter -g resultados.jtl -o report_folder
 
       - name: Subir archivos de resultados
         uses: actions/upload-artifact@v4
@@ -61,5 +58,4 @@ jobs:
           name: resultados-jmeter
           path: |
             resultados.jtl
-            resultados.csv
-            resultados.html
+            report_folder

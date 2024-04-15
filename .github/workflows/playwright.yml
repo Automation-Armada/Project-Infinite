@@ -99,6 +99,7 @@ jobs:
         uses: Ilshidur/action-slack@master
         with:
           args: |
-            Send test results:
+            Hola chicos envio los resultados del pipeline:
             - Test report: ${{ github.workflow }} on branch ${{ github.ref }}
             - Download: ${{ steps.download.outputs.artifacts_url }}
+            - Artifacts: ${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts

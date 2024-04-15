@@ -49,7 +49,7 @@ jobs:
 
       - name: Ejecutar pruebas JMeter
         run: |
-          jmeter -n -t jmeter/Asistencia.jmx -l resultados.jtl
+          jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
 
       - name: Generar informe HTML
         run: |

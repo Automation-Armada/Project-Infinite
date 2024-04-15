@@ -90,3 +90,14 @@ jobs:
           author_name: "GitHub Actions"
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+
+env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          ATTACHMENTS: |
+            [
+              {
+                "title": ".gitignore",
+                "text": "$(cat .gitignore)"
+              }
+            ]

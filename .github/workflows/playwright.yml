@@ -92,10 +92,11 @@ jobs:
           name: test-report-ubuntu-latest
           path: ./test-results
 
+      - name: Set up Slack webhook
+        run: echo "SLACK_WEBHOOK=https://hooks.slack.com/services/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" >> $GITHUB_ENV
+
       - name: Send test report to Slack
         uses: Ilshidur/action-slack@master
-        env:
-          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
         with:
           args: |
             Send test results:

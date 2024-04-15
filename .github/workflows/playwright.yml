@@ -25,7 +25,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm ci
+          npm run postinstall
 
       - name: Cache Playwright dependencies
         uses: actions/cache@v4
@@ -35,7 +37,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-playwright-
       - name: Install Playwright
-        run: npx playwright install
+        run: |
+          npx playwright install
 
       - name: Run Infinite tests
         run: npm run test

@@ -80,10 +80,10 @@ jobs:
 
   send-slack-message:
     runs-on: ubuntu-latest
-    needs: [test, jmeter-lirmi-test]  # Depend on previous jobs
+    # needs: [test, jmeter-lirmi-test]  # Depend on previous jobs
     steps:
       - name: Send Slack message
-        uses: Ilshidur/action-slack@v3
+        uses: Ilshidur/action-slack@master
         with:
           status: ${{ job.status }}
           text: "Los jobs han finalizado"

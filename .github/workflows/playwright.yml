@@ -78,21 +78,22 @@ jobs:
             report_folder
             resultados.csv
 
+  # jobs:
   send-slack-message:
     runs-on: ubuntu-latest
-    # needs: [test, jmeter-lirmi-test]  # Depend on previous jobs
     steps:
       - name: Send Slack message
         uses: Ilshidur/action-slack@master
         with:
           status: ${{ job.status }}
-          text: "Los jobs han finalizado"
+          attachments: |
+            [
+              {
+                "text": "Send test results"
+              }
+            ]
           author_name: "GitHub Actions"
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-
-env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           ATTACHMENTS: |
             [

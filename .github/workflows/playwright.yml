@@ -52,7 +52,7 @@ jobs:
           jmeter -n -t jmeter/Login.jmx -l resultados.jtl
 
       - name: Subir archivos de resultados
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: resultados-jmeter
           path: resultados.jtl

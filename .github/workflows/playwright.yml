@@ -24,7 +24,6 @@ jobs:
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
-
       - name: Install dependencies
         run: npm install
 
@@ -35,7 +34,6 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
-
       - name: Install Playwright
         run: npx playwright install
 
@@ -53,7 +51,6 @@ jobs:
             ./test-result
             ./test-results
             index.html
-
   jmeter-lirmi-test:
     runs-on: ubuntu-latest
 
@@ -67,12 +64,10 @@ jobs:
         run: |
           jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
           jmeter -g resultados.jtl -e -o report_folder
-
       - name: Generar archivo CSV desde JTL
         run: |
           echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
           awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv
-
       - name: Subir archivos de resultados
         uses: actions/upload-artifact@v4
         with:
@@ -81,7 +76,6 @@ jobs:
             resultados.jtl
             report_folder
             resultados.csv
-
   notify-slack:
     runs-on: ubuntu-latest
     needs: [test, jmeter-lirmi-test]
@@ -94,17 +88,3 @@ jobs:
 
       - name: Set up Slack webhook
         run: echo "SLACK_WEBHOOK=https://hooks.slack.com/services/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" >> $GITHUB_ENV
-
-      - name: Send test report to Slack
-        uses: Ilshidur/action-slack@master
-        with:
-          args: |
-            Hola chicos, envío los resultados del pipeline:
-            - Test report: ${{ github.workflow }} en la rama ${{ github.ref }}
-            - Descarga: ${{ steps.download.outputs.artifacts_url }}
-          attach_files: true
-          attachments: |
-            [{
-              "title": "Artifacts",
-              "title_link": "${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts"
-            }]

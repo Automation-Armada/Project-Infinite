@@ -96,19 +96,15 @@ jobs:
         run: echo "SLACK_WEBHOOK=https://hooks.slack.com/services/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" >> $GITHUB_ENV
 
       - name: Send test report to Slack
-        id: slack-notification
         uses: Ilshidur/action-slack@master
         with:
           args: |
             Hola chicos, envío los resultados del pipeline:
             - Test report: ${{ github.workflow }} en la rama ${{ github.ref }}
             - Descarga: ${{ steps.download.outputs.artifacts_url }}
-            - Artifacts: [Ver artefactos](${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts)
-
-      - name: Upload artifacts to Slack
-        uses: Ilshidur/action-slack@master
-        with:
-          args: |
-            Upload de archivos:
-          file: ./test-results/test-report-ubuntu-latest.zip
-          channel: ${{ steps.slack-notification.outputs.channel }}
+          attach_files: true
+          attachments: |
+            [{
+              "title": "Artifacts",
+              "title_link": "${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts"
+            }]

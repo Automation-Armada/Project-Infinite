@@ -441,7 +441,7 @@
               <elementProp name="email" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">true</boolProp>
                 <stringProp name="Argument.name">email</stringProp>
-                <stringProp name="Argument.value">gabriel.molina@lirmi.com</stringProp>
+                <stringProp name="Argument.value">gabriel.molina@lirmi.dev</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
               <elementProp name="password" elementType="HTTPArgument">
@@ -871,7 +871,7 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">assets.lirmi.com</stringProp>
+          <stringProp name="HTTPSampler.domain">assets.lirmi.dev</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/roma/img/modulos-librodeclases.svg</stringProp>

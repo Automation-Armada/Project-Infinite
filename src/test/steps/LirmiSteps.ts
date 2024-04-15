@@ -10,7 +10,7 @@
 
 //          Given('Completa el campo {string} con {string}', async function (string, string2) {
 //             const correoInput = await pageFixture.page.locator('//*[@id="email"]');
-//             await correoInput.fill('alan.duarte@lirmi.com');
+//             await correoInput.fill('alan.duarte@lirmi.dev');
 //          });   
 
 

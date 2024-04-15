@@ -340,7 +340,7 @@
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="planificación_(unidad_desde_cero)/roma/img/modulos-planificacion.svg-633" enabled="true">
           <intProp name="HTTPSampler.concurrentPool">6</intProp>
-          <stringProp name="HTTPSampler.domain">assets.lirmi.com</stringProp>
+          <stringProp name="HTTPSampler.domain">assets.lirmi.dev</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/roma/img/modulos-planificacion.svg</stringProp>

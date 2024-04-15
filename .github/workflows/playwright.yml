@@ -84,7 +84,7 @@ jobs:
 
   notify-slack:
     runs-on: ubuntu-latest
-    needs: test
+    needs: [test, jmeter-lirmi-test]
     steps:
       - name: Download test report artifact
         uses: actions/download-artifact@v4

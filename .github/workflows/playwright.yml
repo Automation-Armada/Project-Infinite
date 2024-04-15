@@ -49,8 +49,13 @@ jobs:
 
       - name: Ejecutar pruebas JMeter y generar CSV
         run: |
-          jmeter -n -t jmeter/Login.jmx -l resultados.jtl
-          jmeter -g resultados.jtl -e -o report_folder -l resultados.csv
+          jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
+          jmeter -g resultados.jtl -e -o report_folder
+
+      - name: Generar archivo CSV desde JTL
+        run: |
+          echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
+          awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv
 
       - name: Subir archivos de resultados
         uses: actions/upload-artifact@v4

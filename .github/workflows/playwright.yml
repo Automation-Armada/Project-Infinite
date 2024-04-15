@@ -106,5 +106,5 @@ jobs:
           attachments: |
             [{
               "title": "Artifacts",
-              "title_link": "${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts"
+              "title_link": "<${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts|Ver artefactos>"
             }]

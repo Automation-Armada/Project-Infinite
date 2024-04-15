@@ -54,7 +54,7 @@ jobs:
             ./test-results
             index.html
 
-  jmeter-load-test:
+  jmeter-lirmi-test:
     runs-on: ubuntu-latest
 
     container:

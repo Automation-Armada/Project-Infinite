@@ -86,13 +86,9 @@ jobs:
         uses: Ilshidur/action-slack@master
         with:
           status: ${{ job.status }}
-          attachments: |
-            [
-              {
-                "text": "Send test results"
-              }
-            ]
+          text: "Send test results"
           author_name: "GitHub Actions"
+          username: "GitHub Actions"
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           ATTACHMENTS: |

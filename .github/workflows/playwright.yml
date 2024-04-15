@@ -99,7 +99,12 @@ jobs:
         uses: Ilshidur/action-slack@master
         with:
           args: |
-            Hola chicos envio los resultados del pipeline:
-            - Test report: ${{ github.workflow }} on branch ${{ github.ref }}
-            - Download: ${{ steps.download.outputs.artifacts_url }}
-            - Artifacts: ${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts
+            Hola chicos, envío los resultados del pipeline:
+            - Test report: ${{ github.workflow }} en la rama ${{ github.ref }}
+            - Descarga: ${{ steps.download.outputs.artifacts_url }}
+          attach_files: true
+          attachments: |
+            [{
+              "title": "Artifacts",
+              "title_link": "${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts"
+            }]

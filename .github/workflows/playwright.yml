@@ -49,8 +49,9 @@ jobs:
 
       - name: Ejecutar pruebas JMeter
         run: |
-          jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
+          jmeter -n -t jmeter/Login.jmx -l resultados.jtl
           jmeter -g resultados.jtl -o report_folder
+          ./jmeter-results.sh resultados.jtl -f csv -o resultados.csv
 
       - name: Subir archivos de resultados
         uses: actions/upload-artifact@v4
@@ -59,3 +60,4 @@ jobs:
           path: |
             resultados.jtl
             report_folder
+            resultados.csv

@@ -81,3 +81,23 @@ jobs:
             resultados.jtl
             report_folder
             resultados.csv
+
+  notify-slack:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Download test report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: test-report-ubuntu-latest
+          path: ./test-results
+
+      - name: Send test report to Slack
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+        with:
+          args: |
+            Send test results:
+            - Test report: ${{ github.workflow }} on branch ${{ github.ref }}
+            - Download: ${{ steps.download.outputs.artifacts_url }}

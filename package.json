@@ -6,7 +6,8 @@
   "scripts": {
     "pretest": "cat starship.txt",
     "test": "cucumber-js test || true",
-    "posttest": "npx ts-node src/helper/reports.ts"
+    "posttest": "npx ts-node src/helper/reports.ts",
+    "postinstall": "echo 'Post-install script placeholder'"
   },
   "keywords": [],
   "author": "Automation Armada",

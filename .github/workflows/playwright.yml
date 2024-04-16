@@ -59,11 +59,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download test report artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: test-report-ubuntu-latest  # Reemplaza con el nombre correcto según la matriz de tu trabajo 'test'
-          path: ./artifacts  # Ruta donde se descargará el artifact
+      # - name: Download test report artifact
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: test-report-ubuntu-latest  # Reemplaza con el nombre correcto según la matriz de tu trabajo 'test'
+      #     path: ./artifacts  # Ruta donde se descargará el artifact
 
       - name: Send Slack message
         uses: Ilshidur/action-slack@master

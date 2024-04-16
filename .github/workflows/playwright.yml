@@ -85,11 +85,13 @@ jobs:
     needs: [test, jmeter-lirmi-test]
     steps:
       - uses: actions/download-artifact@v4
+      - name: Increment Message Count
+        run: echo "MESSAGE_COUNT=$((MESSAGE_COUNT+1))" >> $GITHUB_ENV
       - name: Send test report to Slack
         uses: Ilshidur/action-slack@master
         with:
           args: |
-            Hola adjunto los resultados del pipeline:
+            Hola adjunto los resultados del pipeline ${{ env.MESSAGE_COUNT }}.
     env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 

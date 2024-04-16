@@ -70,6 +70,7 @@ jobs:
         with:
           args: |
             Hola chicos, envío los resultados del pipeline
+            https://github.com/armadaautomationteam/Project-Infinite/actions
           attachments: |
             [
               {

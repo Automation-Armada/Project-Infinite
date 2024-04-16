@@ -52,6 +52,18 @@ jobs:
             ./test-results
             index.html
   
+  # jobs:
+  send-slack-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Message
+        uses: Ilshidur/action-slack@master
+        with:
+          args: |
+            Hola chicos, aquí están los resultados del pipeline
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
   slackNotification:
    name: Slack Notification
    runs-on: ubuntu-latest

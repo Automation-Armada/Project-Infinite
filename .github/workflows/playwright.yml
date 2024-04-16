@@ -74,11 +74,12 @@ jobs:
       - name: Subir archivos de resultados
         uses: actions/upload-artifact@v4
         with:
-          name: resultados-jmeter
-          path: |
-            resultados.jtl
-            report_folder
-            resultados.csv
+          path: captura.png
+
+            # captura.png
+            # resultados.jtl
+            # report_folder
+            # resultados.csv
   
   notify-slack:
     runs-on: ubuntu-latest

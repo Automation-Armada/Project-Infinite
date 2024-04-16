@@ -89,7 +89,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: resultados-jmeter
-          path: resultados-jmeter  # Ruta donde se descargará el artifact
+          path: ./  # Ruta donde se descargará el artifact
 
       - name: Send Slack message
         uses: Ilshidur/action-slack@master

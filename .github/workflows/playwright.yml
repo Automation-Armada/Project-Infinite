@@ -91,7 +91,7 @@ jobs:
         uses: Ilshidur/action-slack@master
         with:
           args: |
-            Hola adjunto los resultados del pipeline N°${{ env.MESSAGE_COUNT }}.
+            Hola adjunto los resultados del pipeline N° ${{ env.MESSAGE_COUNT }}.
     env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 

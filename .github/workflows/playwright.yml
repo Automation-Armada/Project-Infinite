@@ -78,7 +78,7 @@ jobs:
                   {
                     "type": "button",
                     "text": "Download Full Report",
-                    "url": "URL_DEL_REPORTE_COMPLETO_AQUI"
+                    "url": "https://github.com/armadaautomationteam/Project-Infinite/actions"
                   }
                 ]
               }

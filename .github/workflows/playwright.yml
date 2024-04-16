@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: '*/30 * * * *' 
+    - cron: '0 * * * *' 
   push:
     branches: [master]
   pull_request:
@@ -89,7 +89,7 @@ jobs:
         uses: Ilshidur/action-slack@master
         with:
           args: |
-            Hola chicos, envío los resultados del pipeline:
+            Hola adjunto los resultados del pipeline:
     env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 

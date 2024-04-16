@@ -63,13 +63,8 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: test-report-${{ matrix.os }}
-          path: |
-            ./assets
-            ./features
-            ./test-result
-            ./test-results
-            index.html
+          name: test-report-ubuntu-latest
+          path: ./artifacts
 
       - name: Send test report to Slack
         uses: Ilshidur/action-slack@master

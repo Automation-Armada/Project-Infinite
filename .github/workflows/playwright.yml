@@ -61,7 +61,9 @@ jobs:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
+        SLACK_MESSAGE: 'Post Content :rocket:'
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        
       # - name: Send Slack message
       #   uses: rtCamp/action-slack-notify@v2
       #   # with:

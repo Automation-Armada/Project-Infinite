@@ -3,47 +3,50 @@ import { pageFixture } from "../../hooks/pageFixture";
   
 
 Given('El usuario abre la url .', async function () {
-    await pageFixture.page.goto("https://practicetestautomation.com/"); 
+    await pageFixture.page.goto("https://clarity.microsoft.com/projects/view/hnvtpd92eo/dashboard?date=Today"); 
   })
 
 
   
   
   When('El usuario hace click en {string} boton .', async function (string) {
-    const practiceButton = await pageFixture.page.locator('//*[@id="menu-item-20"]/a');
+    const practiceButton = await pageFixture.page.locator('//*[@id="googleSignIn"]/span');
     await practiceButton.click();
     
   })
   
   When('El usuario hace click {string} boton .', async (s: string) => {
-    const testButton = await pageFixture.page.locator('//*[@id="loop-container"]/div/article/div[2]/div[1]/div[1]/p/a');
+    const testButton = await pageFixture.page.locator('//*[@id="identifierNext"]/div/button/span');
     await testButton.click();
     await pageFixture.page.waitForTimeout(2000);  
   })
   
   Given('El usuario completa el campo username con {string} .', async function (string) {
-    const usernameInput = await pageFixture.page.locator('//*[@id="username"]');
+    const usernameInput = await pageFixture.page.locator('//*[@id="identifierId"]');
     await pageFixture.page.evaluate(() => {
       const scrollPosition = 200; // Ajusta la posición de desplazamiento según sea necesario
       document.documentElement.scrollTo(0, scrollPosition);
     })
         
-    await usernameInput.fill('student');
+    await usernameInput.fill('alan.duarte@lirmi.com');
     
   })
 
   
   Given('Completa el  campo password con {string} .', async function (string) {
-    const usernameInput = await pageFixture.page.locator('//*[@id="password"]');
-    await usernameInput.fill('Password123');
+    const usernameInput = await pageFixture.page.locator('//*[@id="password"]/div[1]/div/div[1]/input');
+    await usernameInput.fill('Odioamoto1!');
 
   })
   
   Given('Hace click en {string}', async (s: string) => {
-    const testButton = await pageFixture.page.locator('//*[@id="submit"]');
+    const testButton = await pageFixture.page.locator('//*[@id="passwordNext"]/div/button/span');
     await pageFixture.page.waitForTimeout(1000);
     await testButton.click();
-      
+    await pageFixture.page.waitForTimeout(15000); // Esperar un breve tiempo para asegurar que la página se cargue completamente
+    await pageFixture.page.screenshot({ path: 'captura.png' }); // Guardar la captura de pantalla
+    
+    // await pageFixture.page.waitForTimeout(10000);
   })
 
   Then('Se muestra el mensaje {string} .', async function (string) {

@@ -83,7 +83,7 @@ jobs:
   
   notify-slack:
     runs-on: ubuntu-latest
-    needs: [test, jmeter-lirmi-test]
+    # needs: [test, jmeter-lirmi-test]
     steps:
       - uses: actions/checkout@v2
       - name: Send test report to Slack
@@ -91,6 +91,8 @@ jobs:
         with:
           args: |
             Hola, adjunto los resultados del pipeline.
+          files: |
+           captura.png
     env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 

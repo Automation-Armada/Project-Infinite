@@ -71,18 +71,6 @@ jobs:
           args: |
             Hola chicos, envío los resultados del pipeline
             https://github.com/armadaautomationteam/Project-Infinite/actions
-          attachments: |
-            [
-              {
-                "fallback": "Download the full report",
-                "actions": [
-                  {
-                    "type": "button",
-                    "text": "Download Full Report",
-                    "url": "https://github.com/armadaautomationteam/Project-Infinite/actions"
-                  }
-                ]
-              }
-            ]
+            ./assets
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

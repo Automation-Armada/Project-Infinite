@@ -51,13 +51,22 @@ jobs:
             ./test-result
             ./test-results
             index.html
+      - name: Send Slack message
+        uses: rtCamp/action-slack-notify@v2
+        # with:
+        #   args: |
+        #     Hola chicos, envío los resultados del pipeline
+        #     https://github.com/armadaautomationteam/Project-Infinite/actions
+        #     ./assets
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
-  send-slack-message:
-    runs-on: ubuntu-latest
-    needs: [test]  # Espera a que termine el trabajo 'test'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  # send-slack-message:
+  #   runs-on: ubuntu-latest
+  #   needs: [test]  # Espera a que termine el trabajo 'test'
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
       # - name: Download test report artifact
       #   uses: actions/download-artifact@v2
@@ -65,12 +74,3 @@ jobs:
       #     name: test-report-ubuntu-latest  # Reemplaza con el nombre correcto según la matriz de tu trabajo 'test'
       #     path: ./artifacts  # Ruta donde se descargará el artifact
 
-      - name: Send Slack message
-        uses: Ilshidur/action-slack@master
-        with:
-          args: |
-            Hola chicos, envío los resultados del pipeline
-            https://github.com/armadaautomationteam/Project-Infinite/actions
-            ./assets
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

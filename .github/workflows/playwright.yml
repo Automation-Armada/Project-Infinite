@@ -52,49 +52,40 @@ jobs:
             ./test-results
             index.html
   
+  jmeter-lirmi-test:
+    runs-on: ubuntu-latest
+
+    container:
+      image: justb4/jmeter:latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ejecutar pruebas JMeter 
+        run: |
+          jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
+          jmeter -g resultados.jtl -e -o report_folder
+      - name: Generar archivo CSV desde JTL
+        run: |
+          echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
+          awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv
+      - name: Subir archivos de resultados
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-jmeter
+          path: |
+            resultados.jtl
+            report_folder
+            resultados.csv
+            
   slackNotification:
     name: Slack Notification
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [test,jmeter-lirmi-test]
     steps:
     - uses: actions/checkout@v2
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}        # attachments: |
-        #   [
-        #     {
-        #       "fallback": "Download the full report",
-        #       "actions": [
-        #         {
-        #           "type": "button",
-        #           "text": "Ver en GitHub",
-        #           "url": "https://github.com/armadaautomationteam/Project-Infinite/actions"
-        #         }
-        #       ]
-        #     }
-        #   ]
-        
-      # - name: Send Slack message
-      #   uses: rtCamp/action-slack-notify@v2
-      #   # with:
-      #   #   args: |
-      #   #     Hola chicos, envío los resultados del pipeline
-      #   #     https://github.com/armadaautomationteam/Project-Infinite/actions
-      #   #     ./assets
-      #   env:
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-  # send-slack-message:
-  #   runs-on: ubuntu-latest
-  #   needs: [test]  # Espera a que termine el trabajo 'test'
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
-
-      # - name: Download test report artifact
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: test-report-ubuntu-latest  # Reemplaza con el nombre correcto según la matriz de tu trabajo 'test'
-      #     path: ./artifacts  # Ruta donde se descargará el artifact
-
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}        
+      

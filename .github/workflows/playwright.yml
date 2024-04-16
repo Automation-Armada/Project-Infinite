@@ -53,16 +53,32 @@ jobs:
             index.html
   
   slackNotification:
-    name: Slack Notification
-    runs-on: ubuntu-latest
-    needs: [test]
-    steps:
+   name: Slack Notification
+   runs-on: ubuntu-latest
+   # needs: [test]
+   steps:
     - uses: actions/checkout@v2
+
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_MESSAGE: 'Post Content :rocket:'
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      with:
+        args: |
+          Hola chicos, aquí están los resultados del pipeline
+        # attachments: |
+        #   [
+        #     {
+        #       "fallback": "Download the full report",
+        #       "actions": [
+        #         {
+        #           "type": "button",
+        #           "text": "Ver en GitHub",
+        #           "url": "https://github.com/armadaautomationteam/Project-Infinite/actions"
+        #         }
+        #       ]
+        #     }
+        #   ]
         
       # - name: Send Slack message
       #   uses: rtCamp/action-slack-notify@v2

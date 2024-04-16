@@ -52,35 +52,16 @@ jobs:
             ./test-results
             index.html
   
-  # jobs:
-  send-slack-message:
+  slackNotification:
+    name: Slack Notification
     runs-on: ubuntu-latest
     needs: [test]
-
     steps:
-      - name: Send Slack Message
-        uses: Ilshidur/action-slack@master
-        with:
-          args: |
-            Hola chicos, aquí están los resultados del pipeline
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-  slackNotification:
-   name: Slack Notification
-   runs-on: ubuntu-latest
-   needs: [test]
-   steps:
     - uses: actions/checkout@v2
-
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      with:
-        args: |
-          Hola chicos, aquí están los resultados del pipeline
-        # attachments: |
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}        # attachments: |
         #   [
         #     {
         #       "fallback": "Download the full report",

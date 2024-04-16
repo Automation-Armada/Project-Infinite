@@ -55,6 +55,8 @@ jobs:
   # jobs:
   send-slack-message:
     runs-on: ubuntu-latest
+    needs: [test]
+
     steps:
       - name: Send Slack Message
         uses: Ilshidur/action-slack@master
@@ -67,7 +69,7 @@ jobs:
   slackNotification:
    name: Slack Notification
    runs-on: ubuntu-latest
-   # needs: [test]
+   needs: [test]
    steps:
     - uses: actions/checkout@v2
 

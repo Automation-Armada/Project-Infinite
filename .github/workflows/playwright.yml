@@ -53,7 +53,7 @@ jobs:
             ./test-result
             ./test-results
             index.html
-  
+              
   jmeter-lirmi-test:
     runs-on: ubuntu-latest
 
@@ -107,7 +107,9 @@ jobs:
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         # SLACK_MESSAGE: 'Test result'
-        SLACK_TITLE: Test Results 
+
+        SLACK_TITLE: Test Results
+ 
 
   create-clarity-report-artifact:
     runs-on: ubuntu-latest
@@ -122,3 +124,4 @@ jobs:
         with:
           name: clarity_report
           path: captura.png
+

@@ -53,6 +53,7 @@ jobs:
             ./test-result
             ./test-results
             index.html
+            captura.png
   
   jmeter-lirmi-test:
     runs-on: ubuntu-latest

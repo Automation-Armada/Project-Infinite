@@ -107,4 +107,18 @@ jobs:
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         # SLACK_MESSAGE: 'Test result'
-        SLACK_TITLE: Test Results
+        SLACK_TITLE: Test Results 
+
+  create-clarity-report-artifact:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      # - name: Create clarity_report directory
+      #   run: mkdir clarity_report
+      # - name: Copy captura.png to clarity_report
+      #   run: cp captura.png clarity_report/
+      - name: Upload clarity report artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: clarity_report
+          path: captura.png

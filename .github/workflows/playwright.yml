@@ -72,7 +72,7 @@ jobs:
           path: captura.png
 
       - name: Permisos
-        run: chmod +x uplod.sh
+        run: chmod +x upload2.sh
         
       - name: Run upload2.sh script
         run: source upload2.sh

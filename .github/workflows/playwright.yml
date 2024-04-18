@@ -93,10 +93,11 @@ jobs:
            name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
            path: ./test-report
 
-       # - name: Extract captura.png from test-report artifact
-       #   run: |
-       #      mkdir -p ./captura
-       #      tar -xf ./test-report/test-report-ubuntu-latest.tar.gz -C ./captura captura.png
+       - name: Extract captura.png from test-report artifact
+
+         run: |
+                 mkdir -p ./captura
+                 tar -xf ./test-report.tar.gz -C ./captura captura.png
   
   #         run: |
 
@@ -113,11 +114,11 @@ jobs:
 
   #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
 
-       - name: Upload captura.png as artifact
-         uses: actions/upload-artifact@v4
-         with:
-           name: captura
-           path: ./test-report
+       # - name: Upload captura.png as artifact
+       #   uses: actions/upload-artifact@v4
+       #   with:
+       #     name: captura
+       #     path: ./test-report
       
 
   # upload-and-run:

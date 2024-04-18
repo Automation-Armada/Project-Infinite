@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          # name: test-report-${{ matrix.os }}
+          name: test-report-${{ matrix.os }}
           path: |
             ./assets
             ./features
@@ -124,7 +124,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: clarity_report
-          path: captura.png
+          path: test-report-ubuntu-latest/captura.png
       # - name: Upload test report
       #   uses: actions/upload-artifact@v4
       #   if: always()

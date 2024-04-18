@@ -97,7 +97,7 @@ jobs:
 
       run: |
                 mkdir -p ./captura
-                unzip ./test-report.zip -C ./captura captura.png
+                unzip ./test-report.zip 
   
   #         run: |
 

@@ -80,10 +80,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Grant execute permission to upload2.sh
-        run: chmod +x upload2.sh
+        run: chmod +x upload.sh
 
       - name: Run upload2.sh script
-        run: ./upload2.sh
+        run: ./upload.sh
 
         
   # jmeter-lirmi-test:

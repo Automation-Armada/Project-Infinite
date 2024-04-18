@@ -81,7 +81,7 @@ Instalar dependencias:
 npm install 
 ```
 ```bash
-npx playwright innstall 
+npx playwright install 
 ```
 
 ### Ayuda

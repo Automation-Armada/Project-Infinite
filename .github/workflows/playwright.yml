@@ -98,10 +98,8 @@ jobs:
           name: captura
           path: captura.png
       
-      - name: Extract artifact
-        run: |
-          unzip ./captura/test-report-ubuntu-latest.zip -d ./extracted-artifact
-
+      - name: Extract captura folder
+        run: tar -xvf captura.tar.gz 
 
   # upload-and-run:
   #   runs-on: ubuntu-latest

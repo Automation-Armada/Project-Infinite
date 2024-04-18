@@ -113,11 +113,11 @@ jobs:
 
   #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
 
-       # - name: Upload captura.png as artifact
-       #   uses: actions/upload-artifact@v4
-       #   with:
-       #     name: captura
-       #     path: captura.png
+       - name: Upload captura.png as artifact
+         uses: actions/upload-artifact@v4
+         with:
+           name: captura
+           path: ./test-report
       
 
   # upload-and-run:

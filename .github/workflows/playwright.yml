@@ -119,8 +119,14 @@ jobs:
       #   run: mkdir clarity_report
       # - name: Copy captura.png to clarity_report
       #   run: cp captura.png clarity_report/
-      - name: Upload clarity report artifact
-        uses: actions/upload-artifact@v2
+      # - name: Upload clarity report artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: clarity_report
+      #     path: captura.png
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: clarity_report
+          name: test-report-clarity-${{ matrix.os }}
           path: captura.png

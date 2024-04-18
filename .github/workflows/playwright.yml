@@ -56,7 +56,7 @@ jobs:
             captura.png
 
 upload-artifact:
-    needs: test  # Este trabajo depende del trabajo 'test'
+    needs: test  
     runs-on: ubuntu-latest  # Puedes elegir un sistema operativo específico para este trabajo
 
     steps:

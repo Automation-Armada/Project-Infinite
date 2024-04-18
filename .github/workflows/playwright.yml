@@ -129,11 +129,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v2
-
-      - name: Otorgar permisos de ejecución al script
-        run: chmod +x upload.sh
-
-      - name: Ejecutar script de carga
-        run: ./upload.sh
+      - name: Imprimir el token secreto
+        run: echo ${{ secrets.SLACK_TOKEN }}
+      - name: Subir archivo a Slack
+        run: |
+          TOKEN="${{ secrets.SLACK_TOKEN }}"
+          PHOTO_FILE="captura.png"
+          CHANNEL_ID="C06S26FBWP2"
+          curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload

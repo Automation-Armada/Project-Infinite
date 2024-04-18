@@ -92,14 +92,15 @@ jobs:
         with:
           name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
 
+      - name: Extract captura folder
+        run: tar -xvf captura.tar.gz 
+      
       - name: Upload captura.png as artifact
         uses: actions/upload-artifact@v4
         with:
           name: captura
           path: captura.png
       
-      - name: Extract captura folder
-        run: tar -xvf captura.tar.gz 
 
   # upload-and-run:
   #   runs-on: ubuntu-latest

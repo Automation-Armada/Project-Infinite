@@ -55,21 +55,23 @@ jobs:
             index.html
             captura.png
 
-  test-screenshot:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+upload-artifact:
+    needs: test  # Este trabajo depende del trabajo 'test'
+    runs-on: ubuntu-latest  # Puedes elegir un sistema operativo específico para este trabajo
 
     steps:
-      - name: Upload screenshot
-        uses: actions/upload-artifact@v4
-        if: always()
+      - name: Download test report
+        uses: actions/download-artifact@v4
         with:
-          name: screenshot-${{ matrix.os }}
-          path: captura.png
-              
-  jmeter-lirmi-test:
+          name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
+
+      - name: Upload captura.png as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: captura-${{ github.run_number }}
+          path: captura.png              
+  
+jmeter-lirmi-test:
     runs-on: ubuntu-latest
 
     container:

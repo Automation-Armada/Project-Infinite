@@ -71,8 +71,11 @@ jobs:
           name: captura-${{ github.run_number }}
           path: captura.png
 
+      - name: Permisos
+        run: chmod +x uplod.sh
+        
       - name: Run upload2.sh script
-        run: ./upload2.sh
+        run: source upload2.sh
   
   # jmeter-lirmi-test:
   #   runs-on: ubuntu-latest

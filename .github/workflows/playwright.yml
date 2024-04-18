@@ -98,7 +98,7 @@ jmeter-lirmi-test:
             resultados.csv
   
 
-  notify-slack:
+notify-slack:
     runs-on: ubuntu-latest
     needs: [test,jmeter-lirmi-test]
     steps:

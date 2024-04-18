@@ -80,10 +80,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Grant execute permission to upload2.sh
-        run: chmod +x ${{ github.workspace }}/upload2.sh
+        run: chmod +x upload2.sh
 
       - name: Run upload2.sh script
-        run: ${{ github.workspace }}/upload2.sh
+        run: ./upload2.sh
 
         
   # jmeter-lirmi-test:

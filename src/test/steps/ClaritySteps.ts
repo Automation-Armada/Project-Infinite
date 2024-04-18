@@ -1,7 +1,7 @@
 import { Given,Then,When,setDefaultTimeout} from "@cucumber/cucumber"
 import { pageFixture } from "../../hooks/pageFixture";
 
-setDefaultTimeout(60+ 1000)
+// setDefaultTimeout(60+ 1000)
 
 Given('El usuario abre la pagina con la url {string}', async function (string) {
     await pageFixture.page.goto("https://clarity.microsoft.com/projects/view/hnvtpd92eo/dashboard?date=Today"); 

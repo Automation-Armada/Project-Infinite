@@ -81,23 +81,23 @@ jobs:
   #         PHOTO_FILE="./extracted-artifact/captura.png"  # Ruta al archivo extraído del artifact
   #         CHANNEL_ID="C06S26FBWP2"
   #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
-  
   upload-artifact:
-     needs: test  
-     runs-on: ubuntu-latest  # Puedes elegir un sistema operativo específico para este trabajo
+    needs: test  
+    runs-on: windows-latest  # Puedes elegir un sistema operativo específico para este trabajo
 
-     steps:
-       - name: Download test report
-         uses: actions/download-artifact@v4
-         with:
-           name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
-           path: ./test-report
+    steps:
+    - name: Download test report
+      uses: actions/download-artifact@v4
+      with: 
+            name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
+            path: ./test-report
 
-       - name: Extract captura.png from test-report artifact
+  
+    - name: Extract captura.png from test-report artifact
 
-         run: |
-                 mkdir -p ./captura
-                 tar -xf ./test-report.tar.gz -C ./captura captura.png
+      run: |
+                mkdir -p ./captura
+                unzip ./test-report.zip -C ./captura captura.png
   
   #         run: |
 
@@ -134,32 +134,32 @@ jobs:
   #     - name: Run upload2.sh script
   #       run: ./upload.sh
   
-  upload-to-slack:
-       runs-on: ubuntu-latest
-       needs: [test]
+# upload-to-slack:
+#        runs-on: ubuntu-latest
+#        needs: [test]
 
-       steps:
-       # - name: Checkout repository
-       #   uses: actions/checkout@v4
+#        steps:
+#        # - name: Checkout repository
+#        #   uses: actions/checkout@v4
 
-       - name: Download test report artifact
-         uses: actions/download-artifact@v4
-         with:
-          name: test-report-ubuntu-latest
-          path: /test-report
+#        - name: Download test report artifact
+#          uses: actions/download-artifact@v4
+#          with:
+#           name: test-report-ubuntu-latest
+#           path: /test-report
 
-       - name: Move captura.png to correct location
-         run: mv /test-report/captura.png 
+#        - name: Move captura.png to correct location
+#          run: mv /test-report/captura.png 
 
-       - name: Run script
-         env:
-          SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-         run: |
-          TOKEN="${SLACK_API_TOKEN}"
-          PHOTO_FILE="/test-report/captura.png"
-          CHANNEL_ID="C06S26FBWP2"
+#        - name: Run script
+#          env:
+#           SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+#          run: |
+#           TOKEN="${SLACK_API_TOKEN}"
+#           PHOTO_FILE="/test-report/captura.png"
+#           CHANNEL_ID="C06S26FBWP2"
 
-          curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload  
+#           curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload  
 
   # upload-to-slack:
   #   runs-on: ubuntu-latest

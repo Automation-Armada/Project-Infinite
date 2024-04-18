@@ -1,13 +1,13 @@
-Feature:login
-iniicar secion en practice automation
+# Feature:login
+# iniicar secion en practice automation
  
-Scenario:Login 
-Given El usuario abre la url .
-When El usuario hace click en "Practice" boton .
-Given El usuario completa el campo username con "student" .
-When El usuario hace click "Test login" boton .
-And Completa el  campo password con "Password123" .
-And Hace click en "Submit"
+# Scenario:Login 
+# Given El usuario abre la url .
+# When El usuario hace click en "Practice" boton .
+# Given El usuario completa el campo username con "student" .
+# When El usuario hace click "Test login" boton .
+# And Completa el  campo password con "Password123" .
+# And Hace click en "Submit"
 # Then Se muestra el mensaje "Logged In Successfully" .
 # When El usuario hace click en "Practice" boton .
 # When El usuario hace click en el test "Test Exceptions"

@@ -82,21 +82,21 @@ jobs:
           CHANNEL_ID="C06S26FBWP2"
           curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
   
-  # upload-artifact:
-  #   needs: test  
-  #   runs-on: ubuntu-latest  # Puedes elegir un sistema operativo específico para este trabajo
+  upload-artifact:
+    needs: test  
+    runs-on: ubuntu-latest  # Puedes elegir un sistema operativo específico para este trabajo
 
-  #   steps:
-  #     - name: Download test report
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
+    steps:
+      - name: Download test report
+        uses: actions/download-artifact@v4
+        with:
+          name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
 
-  #     - name: Upload captura.png as artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: captura
-  #         path: captura.png
+      - name: Upload captura.png as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: captura
+          path: captura.png
 
 
   # upload-and-run:

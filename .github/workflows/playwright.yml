@@ -71,12 +71,21 @@ jobs:
           name: captura-${{ github.run_number }}
           path: captura.png
 
-      - name: Permisos
-        run: chmod +x upload2.sh
-        
+
+  upload-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Grant execute permission to upload2.sh
+        run: chmod +x ${{ github.workspace }}/upload2.sh
+
       - name: Run upload2.sh script
-        run: source upload2.sh
-  
+        run: ${{ github.workspace }}/upload2.sh
+
+        
   # jmeter-lirmi-test:
   #   runs-on: ubuntu-latest
 

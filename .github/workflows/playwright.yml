@@ -72,7 +72,7 @@ jobs:
           path: captura.png
 
       - name: Run upload2.sh script
-        run: ./upload2.sh
+        run: upload2.sh
   
   # jmeter-lirmi-test:
   #   runs-on: ubuntu-latest

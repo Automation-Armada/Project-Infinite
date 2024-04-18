@@ -84,16 +84,18 @@ jobs:
   
   upload-artifact:
     needs: test  
-    runs-on: ubuntu-latest  # Puedes elegir un sistema operativo específico para este trabajo
+    runs-on: windows-latest  # Puedes elegir un sistema operativo específico para este trabajo
 
     steps:
       - name: Download test report
         uses: actions/download-artifact@v4
         with:
-          name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
+          name: test-report-windows-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
+        
+          run: |
 
-      - name: Extract captura folder
-        run: tar -xvf test-report-ubuntu-latest.tar.gz 
+           mkdir captura  
+           7z x test-report-windows-latest.tar.gz -ocaptura        
       
       - name: Upload captura.png as artifact
         uses: actions/upload-artifact@v4

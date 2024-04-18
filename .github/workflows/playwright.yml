@@ -101,7 +101,7 @@ jobs:
   
     - name: Unzip folder
       run: |
-       unzip captura.zip -d extracted_folder
+       unzip test-report.zip -d extracted_folder
        working-directory: ${{ github.workspace }}/captura
 
     

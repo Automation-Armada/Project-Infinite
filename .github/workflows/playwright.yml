@@ -125,3 +125,12 @@ jobs:
           name: clarity_report
           path: captura.png
 
+  upload_script:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v2
+
+      - name: Ejecutar script de carga
+        run: ./upload.sh

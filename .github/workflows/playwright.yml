@@ -68,7 +68,7 @@ jobs:
       - name: Upload captura.png as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: captura-${{ github.run_number }}
+          name: captura
           path: captura.png
 
 

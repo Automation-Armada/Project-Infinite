@@ -55,6 +55,33 @@ jobs:
             index.html
             captura.png
 
+  upload-to-slack:
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download test artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: test-report-ubuntu-latest  # Nombre del artifact generado por el job "test"
+          path: ./downloaded-artifact  # Carpeta donde se descargará el artifact
+
+      - name: Extract artifact
+        run: |
+          unzip ./downloaded-artifact/test-report-ubuntu-latest.zip -d ./extracted-artifact
+
+      - name: Run script
+        env:
+          SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+        run: |
+          TOKEN="${SLACK_API_TOKEN}"
+          PHOTO_FILE="./extracted-artifact/captura.png"  # Ruta al archivo extraído del artifact
+          CHANNEL_ID="C06S26FBWP2"
+          curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
+  
   # upload-artifact:
   #   needs: test  
   #   runs-on: ubuntu-latest  # Puedes elegir un sistema operativo específico para este trabajo
@@ -86,23 +113,23 @@ jobs:
   #       run: ./upload.sh
 
 
-  upload-to-slack:
-    runs-on: ubuntu-latest
-    needs: [test]
+  # upload-to-slack:
+  #   runs-on: ubuntu-latest
+  #   needs: [test]
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
 
-      - name: Run script
-        env:
-          SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-        run: |
-          TOKEN="${SLACK_API_TOKEN}"
-          PHOTO_FILE="captura.png"
-          CHANNEL_ID="C06S26FBWP2"
+  #     - name: Run script
+  #       env:
+  #         SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+  #       run: |
+  #         TOKEN="${SLACK_API_TOKEN}"
+  #         PHOTO_FILE="captura.png"
+  #         CHANNEL_ID="C06S26FBWP2"
 
-          curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
+  #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
 
         
 #   jmeter-lirmi-test:

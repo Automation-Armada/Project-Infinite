@@ -94,12 +94,27 @@ jobs:
             name: test-report  # Cambia el nombre según la matriz de sistemas operativos que utilices
             path: /test-report
 
-  
-    - name: Extract captura.png from test-report artifact
 
+    - name: Install unzip
       run: |
-                mkdir -p ./captura
-                unzip /test-report 
+        choco install unzip
+  
+    - name: Unzip folder
+      run: |
+       unzip captura.zip -d extracted_folder
+       working-directory: ${{ github.workspace }}/captura
+
+    
+    
+
+
+
+  
+    # - name: Extract captura.png from test-report artifact
+
+    #   run: |
+    #             mkdir -p ./captura
+    #             unzip /test-report 
   
   #         run: |
 

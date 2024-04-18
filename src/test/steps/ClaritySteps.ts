@@ -1,4 +1,4 @@
-import { Given,Then,When,setDefaultTimeout} from "@cucumber/cucumber"
+import { Given,Then,When} from "@cucumber/cucumber"
 import { pageFixture } from "../../hooks/pageFixture";
 
 

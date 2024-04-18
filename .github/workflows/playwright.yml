@@ -132,5 +132,8 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v2
 
+      - name: Otorgar permisos de ejecución al script
+        run: chmod +x upload.sh
+
       - name: Ejecutar script de carga
         run: ./upload.sh

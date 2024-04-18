@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "cat starship.txt",
-    "test": "cucumber-js test || true",
+    "test": "npx cucumber-js  || true",
     "posttest": "npx ts-node src/helper/reports.ts"
   },
   "keywords": [],

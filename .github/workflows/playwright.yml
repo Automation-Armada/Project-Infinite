@@ -92,7 +92,7 @@ jobs:
       uses: actions/download-artifact@v4
       with: 
             name: test-report  # Cambia el nombre según la matriz de sistemas operativos que utilices
-            path: /
+            path: /test-report
 
   
     - name: Extract captura.png from test-report artifact

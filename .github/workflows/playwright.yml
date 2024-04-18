@@ -92,6 +92,12 @@ jobs:
          with:
            name: test-report-ubuntu-latest  # Cambia el nombre según la matriz de sistemas operativos que utilices
            path: ./test-report
+
+       - name: Extract captura.png from test-report artifact
+         run: |
+            mkdir -p ./captura
+            tar -xf ./test-report/test-report-ubuntu-latest.tar.gz -C ./captura captura.png
+  
   #         run: |
 
   #          mkdir captura  

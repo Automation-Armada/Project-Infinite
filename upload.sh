@@ -1,5 +1,5 @@
 #!/bin/bash
-TOKEN="$SLACK_TOKEN"
+TOKEN= ${{ secrets.SLACK_TOKEN }}
 PHOTO_FILE="captura.png"
 CHANNEL_ID="C06S26FBWP2"  
 

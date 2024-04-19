@@ -55,15 +55,15 @@ jobs:
             index.html
             captura.png
 
-      - name: Run script
-        env:
-          SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-        run: |
-          TOKEN="${SLACK_API_TOKEN}"
-          PHOTO_FILE="./captura.png"  # Modifica la ruta según sea necesario
-          CHANNEL_ID="C06S26FBWP2"   # ID del canal de Slack
+      # - name: Run script
+      #   env:
+      #     SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+      #   run: |
+      #     TOKEN="${SLACK_API_TOKEN}"
+      #     PHOTO_FILE="./captura.png"  
+      #     CHANNEL_ID="C06S26FBWP2"   
 
-          curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
+      #     curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
 
   # upload-to-slack:
   #   runs-on: ubuntu-latest

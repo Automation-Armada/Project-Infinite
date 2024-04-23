@@ -1,284 +1,284 @@
-on:
-  schedule:
-    - cron: '30 * * * *' 
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+# on:
+#   schedule:
+#     - cron: '30 * * * *' 
+#   push:
+#     branches: [master]
+#   pull_request:
+#     branches: [master]
 
-jobs:
-  test:
-    runs-on: [ubuntu-latest]
-    # strategy:
-    #   matrix:
-    #     os: [ubuntu-latest, macos-latest, windows-latest]
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Cache Playwright dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-      - name: Install Playwright
-        run: npx playwright install
-
-      - name: Run Infinite tests
-        run: npm run test
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-report-${{ matrix.os }}
-          path: |
-            ./assets
-            ./features
-            ./test-result
-            ./test-results
-            index.html
-            captura.png
-
-      - name: Run script
-        env:
-          SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-        run: |
-          TOKEN="${SLACK_API_TOKEN}"
-          PHOTO_FILE="./captura.png"  
-          CHANNEL_ID="C06S26FBWP2"   
-
-          curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
-
-  # upload-to-slack:
-  #   runs-on: ubuntu-latest
-  #   needs: [test]
-
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
-
-  #     - name: Download test artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: test-report-ubuntu-latest  # Nombre del artifact generado por el job "test"
-  #         path: ./downloaded-artifact  # Carpeta donde se descargará el artifact
-
-  #     - name: Extract artifact
-  #       run: |
-  #         unzip ./downloaded-artifact/test-report-ubuntu-latest.zip -d ./extracted-artifact
-
-  #     - name: Run script
-  #       env:
-  #         SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-  #       run: |
-  #         TOKEN="${SLACK_API_TOKEN}"
-  #         PHOTO_FILE="./extracted-artifact/captura.png"  # Ruta al archivo extraído del artifact
-  #         CHANNEL_ID="C06S26FBWP2"
-  #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
-  # upload-artifact:
-  #   needs: test  
-  #   runs-on: windows-latest  # Puedes elegir un sistema operativo específico para este trabajo
-
-  #   steps:
-  #   - name: Download test report
-  #     uses: actions/download-artifact@v4
-  #     with: 
-  #           name: test-report  # Cambia el nombre según la matriz de sistemas operativos que utilices
-  #           path: /test-report
-
-
-  #   - name: Install unzip
-  #     run: |
-  #       choco install unzip
-  
-  #   - name: Unzip folder
-  #     run: |
-  #      unzip test-report.zip -d extracted_folder
-  #      working-directory: ${{ github.workspace }}/captura
-
-    
-    
-
-
-
-  
-    # - name: Extract captura.png from test-report artifact
-
-    #   run: |
-    #             mkdir -p ./captura
-    #             unzip /test-report 
-  
-  #         run: |
-
-  #          mkdir captura  
-  #          7z x test-report-windows-latest.tar.gz -ocaptura        
-      
-  #     - name: Run script
-  #       env:
-  #         SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-  #       run: |
-  #         TOKEN="${SLACK_API_TOKEN}"
-  #         PHOTO_FILE="/test-report-windows-latest/captura.png"
-  #         CHANNEL_ID="C06S26FBWP2"
-
-  #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
-
-       # - name: Upload captura.png as artifact
-       #   uses: actions/upload-artifact@v4
-       #   with:
-       #     name: captura
-       #     path: ./test-report
-      
-
-  # upload-and-run:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
-
-  #     - name: Grant execute permission to upload2.sh
-  #       run: chmod +x upload.sh
-
-  #     - name: Run upload2.sh script
-  #       run: ./upload.sh
-  
-# upload-to-slack:
-#        runs-on: ubuntu-latest
-#        needs: [test]
-
-#        steps:
-#        # - name: Checkout repository
-#        #   uses: actions/checkout@v4
-
-#        - name: Download test report artifact
-#          uses: actions/download-artifact@v4
-#          with:
-#           name: test-report-ubuntu-latest
-#           path: /test-report
-
-#        - name: Move captura.png to correct location
-#          run: mv /test-report/captura.png 
-
-#        - name: Run script
-#          env:
-#           SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-#          run: |
-#           TOKEN="${SLACK_API_TOKEN}"
-#           PHOTO_FILE="/test-report/captura.png"
-#           CHANNEL_ID="C06S26FBWP2"
-
-#           curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload  
-
-  # upload-to-slack:
-  #   runs-on: ubuntu-latest
-  #   needs: [test]
-
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
-
-  #     - name: Run script
-  #       env:
-  #         SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-  #       run: |
-  #         TOKEN="${SLACK_API_TOKEN}"
-  #         PHOTO_FILE="captura.png"
-  #         CHANNEL_ID="C06S26FBWP2"
-
-  #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
-
-        
-#   jmeter-lirmi-test:
-#     runs-on: ubuntu-latest
-
-#     container:
-#       image: justb4/jmeter:latest
+# jobs:
+#   test:
+#     runs-on: [ubuntu-latest]
+#     # strategy:
+#     #   matrix:
+#     #     os: [ubuntu-latest, macos-latest, windows-latest]
 
 #     steps:
 #       - uses: actions/checkout@v4
-
-#       - name: Ejecutar pruebas JMeter 
-#         run: |
-#           jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
-#           jmeter -g resultados.jtl -e -o report_folder
-#       - name: Generar archivo CSV desde JTL
-#         run: |
-#           echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
-#           awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv
-#       - name: Subir archivos de resultados
-#         uses: actions/upload-artifact@v4
+#       - uses: actions/setup-node@v4
 #         with:
-#           name: lirmi_report
+#           node-version: '20'
+
+#       - name: Cache npm dependencies
+#         uses: actions/cache@v4
+#         with:
+#           path: ~/.npm
+#           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+#           restore-keys: |
+#             ${{ runner.os }}-npm-
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Cache Playwright dependencies
+#         uses: actions/cache@v4
+#         with:
+#           path: ~/.cache/ms-playwright
+#           key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
+#           restore-keys: |
+#             ${{ runner.os }}-playwright-
+#       - name: Install Playwright
+#         run: npx playwright install
+
+#       - name: Run Infinite tests
+#         run: npm run test
+
+#       - name: Upload test report
+#         uses: actions/upload-artifact@v4
+#         if: always()
+#         with:
+#           name: test-report-${{ matrix.os }}
 #           path: |
-#             resultados.jtl
-#             report_folder
-#             resultados.csv
+#             ./assets
+#             ./features
+#             ./test-result
+#             ./test-results
+#             index.html
+#             captura.png
+
+#       - name: Run script
+#         env:
+#           SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+#         run: |
+#           TOKEN="${SLACK_API_TOKEN}"
+#           PHOTO_FILE="./captura.png"  
+#           CHANNEL_ID="C06S26FBWP2"   
+
+#           curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
+
+#   # upload-to-slack:
+#   #   runs-on: ubuntu-latest
+#   #   needs: [test]
+
+#   #   steps:
+#   #     - name: Checkout repository
+#   #       uses: actions/checkout@v2
+
+#   #     - name: Download test artifact
+#   #       uses: actions/download-artifact@v4
+#   #       with:
+#   #         name: test-report-ubuntu-latest  # Nombre del artifact generado por el job "test"
+#   #         path: ./downloaded-artifact  # Carpeta donde se descargará el artifact
+
+#   #     - name: Extract artifact
+#   #       run: |
+#   #         unzip ./downloaded-artifact/test-report-ubuntu-latest.zip -d ./extracted-artifact
+
+#   #     - name: Run script
+#   #       env:
+#   #         SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+#   #       run: |
+#   #         TOKEN="${SLACK_API_TOKEN}"
+#   #         PHOTO_FILE="./extracted-artifact/captura.png"  # Ruta al archivo extraído del artifact
+#   #         CHANNEL_ID="C06S26FBWP2"
+#   #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
+#   # upload-artifact:
+#   #   needs: test  
+#   #   runs-on: windows-latest  # Puedes elegir un sistema operativo específico para este trabajo
+
+#   #   steps:
+#   #   - name: Download test report
+#   #     uses: actions/download-artifact@v4
+#   #     with: 
+#   #           name: test-report  # Cambia el nombre según la matriz de sistemas operativos que utilices
+#   #           path: /test-report
+
+
+#   #   - name: Install unzip
+#   #     run: |
+#   #       choco install unzip
+  
+#   #   - name: Unzip folder
+#   #     run: |
+#   #      unzip test-report.zip -d extracted_folder
+#   #      working-directory: ${{ github.workspace }}/captura
+
+    
+    
+
+
+
+  
+#     # - name: Extract captura.png from test-report artifact
+
+#     #   run: |
+#     #             mkdir -p ./captura
+#     #             unzip /test-report 
+  
+#   #         run: |
+
+#   #          mkdir captura  
+#   #          7z x test-report-windows-latest.tar.gz -ocaptura        
+      
+#   #     - name: Run script
+#   #       env:
+#   #         SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+#   #       run: |
+#   #         TOKEN="${SLACK_API_TOKEN}"
+#   #         PHOTO_FILE="/test-report-windows-latest/captura.png"
+#   #         CHANNEL_ID="C06S26FBWP2"
+
+#   #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
+
+#        # - name: Upload captura.png as artifact
+#        #   uses: actions/upload-artifact@v4
+#        #   with:
+#        #     name: captura
+#        #     path: ./test-report
+      
+
+#   # upload-and-run:
+#   #   runs-on: ubuntu-latest
+
+#   #   steps:
+#   #     - name: Checkout repository
+#   #       uses: actions/checkout@v2
+
+#   #     - name: Grant execute permission to upload2.sh
+#   #       run: chmod +x upload.sh
+
+#   #     - name: Run upload2.sh script
+#   #       run: ./upload.sh
+  
+# # upload-to-slack:
+# #        runs-on: ubuntu-latest
+# #        needs: [test]
+
+# #        steps:
+# #        # - name: Checkout repository
+# #        #   uses: actions/checkout@v4
+
+# #        - name: Download test report artifact
+# #          uses: actions/download-artifact@v4
+# #          with:
+# #           name: test-report-ubuntu-latest
+# #           path: /test-report
+
+# #        - name: Move captura.png to correct location
+# #          run: mv /test-report/captura.png 
+
+# #        - name: Run script
+# #          env:
+# #           SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+# #          run: |
+# #           TOKEN="${SLACK_API_TOKEN}"
+# #           PHOTO_FILE="/test-report/captura.png"
+# #           CHANNEL_ID="C06S26FBWP2"
+
+# #           curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload  
+
+#   # upload-to-slack:
+#   #   runs-on: ubuntu-latest
+#   #   needs: [test]
+
+#   #   steps:
+#   #     - name: Checkout repository
+#   #       uses: actions/checkout@v2
+
+#   #     - name: Run script
+#   #       env:
+#   #         SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+#   #       run: |
+#   #         TOKEN="${SLACK_API_TOKEN}"
+#   #         PHOTO_FILE="captura.png"
+#   #         CHANNEL_ID="C06S26FBWP2"
+
+#   #         curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
+
+        
+# #   jmeter-lirmi-test:
+# #     runs-on: ubuntu-latest
+
+# #     container:
+# #       image: justb4/jmeter:latest
+
+# #     steps:
+# #       - uses: actions/checkout@v4
+
+# #       - name: Ejecutar pruebas JMeter 
+# #         run: |
+# #           jmeter -n -t jmeter/Asistencia_mensual.jmx -l resultados.jtl
+# #           jmeter -g resultados.jtl -e -o report_folder
+# #       - name: Generar archivo CSV desde JTL
+# #         run: |
+# #           echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
+# #           awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv
+# #       - name: Subir archivos de resultados
+# #         uses: actions/upload-artifact@v4
+# #         with:
+# #           name: lirmi_report
+# #           path: |
+# #             resultados.jtl
+# #             report_folder
+# #             resultados.csv
   
 
-#   notify-slack:
-#     runs-on: ubuntu-latest
-#     needs: [test,jmeter-lirmi-test]
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Send test report to Slack
-#         uses: Ilshidur/action-slack@master
-#         with:
-#           args: |
-#             Hola, adjunto los resultados del pipeline.
+# #   notify-slack:
+# #     runs-on: ubuntu-latest
+# #     needs: [test,jmeter-lirmi-test]
+# #     steps:
+# #       - uses: actions/checkout@v2
+# #       - name: Send test report to Slack
+# #         uses: Ilshidur/action-slack@master
+# #         with:
+# #           args: |
+# #             Hola, adjunto los resultados del pipeline.
           
-#     env:
-#         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+# #     env:
+# #         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
 
 
-# slackNotification:
-#   name: Slack Notification
-#   runs-on: ubuntu-latest
-#   needs: [test,jmeter-lirmi-test,notify-slack]
-#   steps:
-#     - uses: actions/checkout@v2
-#     - name: Slack Notification
-#       uses: rtCamp/action-slack-notify@v2
-#       env:
-#         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-#         # SLACK_MESSAGE: 'Test result'
+# # slackNotification:
+# #   name: Slack Notification
+# #   runs-on: ubuntu-latest
+# #   needs: [test,jmeter-lirmi-test,notify-slack]
+# #   steps:
+# #     - uses: actions/checkout@v2
+# #     - name: Slack Notification
+# #       uses: rtCamp/action-slack-notify@v2
+# #       env:
+# #         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+# #         # SLACK_MESSAGE: 'Test result'
 
-#         SLACK_TITLE: Test Results
+# #         SLACK_TITLE: Test Results
  
 
-  # create-clarity-report-artifact:
-  #   runs-on: ubuntu-latest
-  #   needs: [test]
-  #   steps:
-  #     - name: Create clarity_report directory
-  #       run: mkdir clarity_report
-  #     - name: Copy captura.png to clarity_report
-  #       run: cp captura.png clarity_report/
-  #     - name: Upload clarity report artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: clarity_report
-  #         path: test-report-ubuntu-latest/captura.png
-      # - name: Upload test report
-      #   uses: actions/upload-artifact@v4
-      #   if: always()
-      #   with:
-      #     name: test-report-clarity-${{ matrix.os }}
-      #     path: /
+#   # create-clarity-report-artifact:
+#   #   runs-on: ubuntu-latest
+#   #   needs: [test]
+#   #   steps:
+#   #     - name: Create clarity_report directory
+#   #       run: mkdir clarity_report
+#   #     - name: Copy captura.png to clarity_report
+#   #       run: cp captura.png clarity_report/
+#   #     - name: Upload clarity report artifact
+#   #       uses: actions/upload-artifact@v4
+#   #       with:
+#   #         name: clarity_report
+#   #         path: test-report-ubuntu-latest/captura.png
+#       # - name: Upload test report
+#       #   uses: actions/upload-artifact@v4
+#       #   if: always()
+#       #   with:
+#       #     name: test-report-clarity-${{ matrix.os }}
+#       #     path: /

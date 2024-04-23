@@ -39,7 +39,7 @@ Given('El usuario abre la pagina con la url {string}', async function (string) {
     const testButton = await pageFixture.page.locator('//*[@id="passwordNext"]');
     await pageFixture.page.waitForTimeout(1000);
     await testButton.click();
-    await pageFixture.page.waitForTimeout(20000); // Esperar un breve tiempo para asegurar que la página se cargue completamente
+    await pageFixture.page.waitForTimeout(40000); // Esperar un breve tiempo para asegurar que la página se cargue completamente
     await pageFixture.page.screenshot({ path: 'captura.png' }); // Guardar la captura de pantalla
     
     await pageFixture.page.waitForTimeout(10000);

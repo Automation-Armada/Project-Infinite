@@ -16,7 +16,7 @@ jobs:
 
       - name: Ejecutar pruebas JMeter 
         run: |
-          jmeter -n -t jmeter/ -l resultados.jtl
+          jmeter -n -t jmeter/TestPlan-Tomcat-Examples.jmx -l resultados.jtl
           jmeter -g resultados.jtl -e -o report_folder
       - name: Generar archivo CSV desde JTL
         run: |

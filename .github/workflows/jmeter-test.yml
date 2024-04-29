@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [master]
 
- jobs:
+jobs:
  jmeter-lirmi-test:
     runs-on: ubuntu-latest
 

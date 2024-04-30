@@ -16,7 +16,7 @@ jobs:
           args: |
             Hola, les envio el reporte de paros para hoy:
             https://www.infobae.com/tag/paro-de-colectivos/
-          
+          file: captura.png
     env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
  # jmeter-lirmi-test:

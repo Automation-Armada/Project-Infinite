@@ -1,6 +1,6 @@
 import { Given, Then, When } from "@cucumber/cucumber";
 import { pageFixture } from "../../hooks/pageFixture";
-import { createObjectCsvWriter } from "csv-writer";
+// import { createObjectCsvWriter } from "csv-writer";
 
 
 Given('El usuario abre la pagina {string}', async function (string) {

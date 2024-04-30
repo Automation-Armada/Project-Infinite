@@ -5,28 +5,42 @@ on:
     branches: [master]
 
 jobs:
- jmeter-lirmi-test:
+  notify-slack:
     runs-on: ubuntu-latest
-
-    container:
-      image: justb4/jmeter:latest
-
+   # needs: [test,jmeter-lirmi-test]
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Ejecutar pruebas JMeter 
-        run: |
-          jmeter -n -t jmeter/TestPlan-Tomcat-Examples.jmx -l resultados.jtl
-          jmeter -g resultados.jtl -e -o report_folder
-      - name: Generar archivo CSV desde JTL
-        run: |
-          echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
-          awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv
-      - name: Subir archivos de resultados
-        uses: actions/upload-artifact@v4
+      - uses: actions/checkout@v2
+      - name: Send test report to Slack
+        uses: Ilshidur/action-slack@master
         with:
-          name: lirmi_report
-          path: |
-            resultados.jtl
-            report_folder
-            resultados.csv
+          args: |
+            Hola, les envio el reporte de paros para hoy:
+            https://www.infobae.com/tag/paro-de-colectivos/
+          
+    env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+ # jmeter-lirmi-test:
+ #    runs-on: ubuntu-latest
+
+ #    container:
+ #      image: justb4/jmeter:latest
+
+ #    steps:
+ #      - uses: actions/checkout@v4
+
+ #      - name: Ejecutar pruebas JMeter 
+ #        run: |
+ #          jmeter -n -t jmeter/TestPlan-Tomcat-Examples.jmx -l resultados.jtl
+ #          jmeter -g resultados.jtl -e -o report_folder
+ #      - name: Generar archivo CSV desde JTL
+ #        run: |
+ #          echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
+ #          awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv
+ #      - name: Subir archivos de resultados
+ #        uses: actions/upload-artifact@v4
+ #        with:
+ #          name: lirmi_report
+ #          path: |
+ #            resultados.jtl
+ #            report_folder
+ #            resultados.csv

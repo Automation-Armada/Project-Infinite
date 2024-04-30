@@ -61,7 +61,7 @@ jobs:
         run: |
           TOKEN="${SLACK_API_TOKEN}"
           PHOTO_FILE="./paro.png"  
-          CHANNEL_ID="C06S26FBWP2"   
+          CHANNEL_ID="D0662HPPER4"   
 
           curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://slack.com/api/files.upload
 

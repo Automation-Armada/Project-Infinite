@@ -4,7 +4,7 @@
             "snippetInterface": "async-await"
         },
         "paths": [
-            "src/test/features/ClarityReport.feature"
+            "src/test/features/ParoReportes.feature"
             
             
         ],

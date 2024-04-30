@@ -54,6 +54,7 @@ jobs:
             ./test-results
             index.html
             captura.png
+            paro.png
 
       - name: Run script
         env:

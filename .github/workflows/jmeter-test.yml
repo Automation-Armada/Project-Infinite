@@ -8,9 +8,9 @@ jobs:
 
   jmeter-lirmi-test:
      runs-on: ubuntu-latest
-     strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
+     # strategy:
+     #  matrix:
+     #    os: [ubuntu-latest, macos-latest]
 
      container:
        image: justb4/jmeter:latest
@@ -20,6 +20,8 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
+           curl -O https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.6/jmeter-plugins-manager-1.6.jar
+           docker ps
            jmeter -n -t jmeter/Example 500 threads.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
        # - name: Generar archivo CSV desde JTL
@@ -35,22 +37,22 @@ jobs:
        #       report_folder
        #       resultados.csv
 
-  jmeter-lirmi-test-2:
-     runs-on: ubuntu-latest
-     strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-2:
+  #    runs-on: ubuntu-latest
+  #    strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, macos-latest]
 
-     container:
-       image: justb4/jmeter:latest
+  #    container:
+  #      image: justb4/jmeter:latest
 
-     steps:
-       - uses: actions/checkout@v4
+  #    steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/Example_500_threads.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/Example_500_threads.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
        # - name: Generar archivo CSV desde JTL
        #   run: |
        #     echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv

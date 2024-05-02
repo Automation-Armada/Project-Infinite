@@ -20,7 +20,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Example_500_threads.jmx -l resultados.jtl
+           jmeter -n -t jmeter/Example 500 threads.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
        # - name: Generar archivo CSV desde JTL
        #   run: |

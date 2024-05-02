@@ -4,30 +4,60 @@ on:
   pull_request:
     branches: [master]
 
+# jobs:
+
+#  jmeter-lirmi-test:
+#     runs-on: ubuntu-latest
+#      # strategy:
+#      #  matrix:
+#      #    os: [ubuntu-latest, macos-latest]
+
+#     container:
+#        image: justb4/jmeter:latest
+
+#     steps:
+#        - uses: actions/checkout@v4
+
+#        - name: instalar pluginss JMeter 
+#          run: |
+#             docker ps
+#         # curl -O https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.6/jmeter-plugins-manager-1.6.jar
+#         # jmeter -n -t jmeter/Example 500 threads.jmx -l resultados.jtl
+#         # jmeter -g resultados.jtl -e -o report_folder
+#        - name: correr pruebas jmeter
+#          run: |
+#            jmeter -n -t jmeter/Example 500 threads.jmx -l resultados.jtl
+#            jmeter -g resultados.jtl -e -o report_folder
 jobs:
-
- jmeter-lirmi-test:
+  build:
     runs-on: ubuntu-latest
-     # strategy:
-     #  matrix:
-     #    os: [ubuntu-latest, macos-latest]
-
-    container:
-       image: justb4/jmeter:latest
-
     steps:
-       - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-       - name: instalar pluginss JMeter 
-         run: |
-            docker ps
-        # curl -O https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.6/jmeter-plugins-manager-1.6.jar
-        # jmeter -n -t jmeter/Example 500 threads.jmx -l resultados.jtl
-        # jmeter -g resultados.jtl -e -o report_folder
-       - name: correr pruebas jmeter
-         run: |
-           jmeter -n -t jmeter/Example 500 threads.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Download JMeter
+      run: |
+        curl -O https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.6/jmeter-plugins-manager-1.6.jar
+        java -cp jmeter-plugins-manager-1.6.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
+
+    - name: Install JMeter plugins
+      run: |
+        ~/.jmeter/bin/PluginsManagerCMD.sh install jpgc-json=2.9,jpgc-standard=1.4,jpgc-casutg=2.9,jpgc-mercurial=1.6,jpgc-perfmon=2.1,jpgc-functions=2.0,jpgc-tst=2.4,jpgc-cmd=2.1,jpgc-casutg=2.9,jpgc-csl=0.5,jpgc-fifo=0.3,jpgc-fsv=0.1,jpgc-functions=2.0,jpgc-graphs-basic=2.0,jpgc-graphs-additional=2.0,jpgc-jmxmon=0.4,jpgc-jmxm=0.6,jpgc-udp=1.2,jpgc-tcp=1.2,jpgc-ssh=0.3,jpgc-mqtt=0.4,jpgc-webdriver=3.3,jpgc-wssecurity=0.2,jpgc-perfmon=2.1,jpgc-ggl=0.7,jpgc-synthesis=2.0,jpgc-casutg=2.9
+
+    - name: Run JMeter test
+      run: |
+        ~/.jmeter/bin/jmeter -n -t path/to/your/test-plan.jmx -l results.jtl
+
+    - name: Upload JMeter results
+      uses: actions/upload-artifact@v2
+      with:
+        name: jmeter-results
+        path: results.jtl
 
        # - name: Generar archivo CSV desde JTL
        #   run: |

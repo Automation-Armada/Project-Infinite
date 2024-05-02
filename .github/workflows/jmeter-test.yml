@@ -43,23 +43,27 @@ jobs:
 
     - name: Download JMeter
       run: |
-        curl -O https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.6/jmeter-plugins-manager-1.6.jar
-        java -cp jmeter-plugins-manager-1.6.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
+        curl -O https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.3.tgz
+        tar -xf apache-jmeter-5.4.3.tgz
 
     - name: Install JMeter plugins
       run: |
-        ~/.jmeter/bin/PluginsManagerCMD.sh install jpgc-json=2.9,jpgc-standard=1.4,jpgc-casutg=2.9,jpgc-mercurial=1.6,jpgc-perfmon=2.1,jpgc-functions=2.0,jpgc-tst=2.4,jpgc-cmd=2.1,jpgc-casutg=2.9,jpgc-csl=0.5,jpgc-fifo=0.3,jpgc-fsv=0.1,jpgc-functions=2.0,jpgc-graphs-basic=2.0,jpgc-graphs-additional=2.0,jpgc-jmxmon=0.4,jpgc-jmxm=0.6,jpgc-udp=1.2,jpgc-tcp=1.2,jpgc-ssh=0.3,jpgc-mqtt=0.4,jpgc-webdriver=3.3,jpgc-wssecurity=0.2,jpgc-perfmon=2.1,jpgc-ggl=0.7,jpgc-synthesis=2.0,jpgc-casutg=2.9
+        cd apache-jmeter-5.4.3/lib/ext/
+        curl -O https://jmeter-plugins.org/downloads/file/JMeterPlugins-Standard-1.4.0.zip
+        unzip -o JMeterPlugins-Standard-1.4.0.zip
+        curl -O https://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.4.0.zip
+        unzip -o JMeterPlugins-Extras-1.4.0.zip
+        # Add more plugin downloads as needed
 
     - name: Run JMeter test
       run: |
-        ~/.jmeter/bin/jmeter -n -t path/to/your/test-plan.jmx -l results.jtl
+        apache-jmeter-5.4.3/bin/jmeter -n -t path/to/your/test-plan.jmx -l results.jtl
 
     - name: Upload JMeter results
       uses: actions/upload-artifact@v2
       with:
         name: jmeter-results
         path: results.jtl
-
        # - name: Generar archivo CSV desde JTL
        #   run: |
        #     echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv

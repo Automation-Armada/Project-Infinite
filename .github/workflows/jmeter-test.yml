@@ -5,11 +5,27 @@ on:
     branches: [master]
 
 jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run tests
+        run: |
+          # Comandos para ejecutar pruebas
+          echo "Ejecutando pruebas en ${{ matrix.os }}..."
+
   notify-slack:
     runs-on: ubuntu-latest
-   # needs: [test,jmeter-lirmi-test]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Send test report to Slack
         uses: Ilshidur/action-slack@master
         with:
@@ -18,7 +34,7 @@ jobs:
             https://www.infobae.com/tag/paro-de-colectivos/
           file: captura.png
     env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
  # jmeter-lirmi-test:
  #    runs-on: ubuntu-latest
 

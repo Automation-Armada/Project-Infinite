@@ -46,14 +46,13 @@ jobs:
         curl -O https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.3.tgz
         tar -xf apache-jmeter-5.4.3.tgz
 
+    - name: Download JMeterPlugins-Standard
+      run: |
+        curl -LO https://jmeter-plugins.org/files/packages/jpgc-standard-1.4.0.zip
+
     - name: Install JMeter plugins
       run: |
-        cd apache-jmeter-5.4.3/lib/ext/
-        curl -O https://jmeter-plugins.org/downloads/file/JMeterPlugins-Standard-1.4.0.zip
-        unzip -o JMeterPlugins-Standard-1.4.0.zip
-        curl -O https://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.4.0.zip
-        unzip -o JMeterPlugins-Extras-1.4.0.zip
-        # Add more plugin downloads as needed
+        unzip -o jpgc-standard-1.4.0.zip -d apache-jmeter-5.4.3/
 
     - name: Run JMeter test
       run: |
@@ -63,8 +62,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: jmeter-results
-        path: results.jtl
-       # - name: Generar archivo CSV desde JTL
+        path: results.jtl       # - name: Generar archivo CSV desde JTL
        #   run: |
        #     echo "timestamp,elapsed,label,responseCode,responseMessage,success,bytes,grpThreads,allThreads,Latency" > resultados.csv
        #     awk -F',' '{print $1","$2","$3","$4","$5","$6","$7","$8","$9","$10}' resultados.jtl >> resultados.csv

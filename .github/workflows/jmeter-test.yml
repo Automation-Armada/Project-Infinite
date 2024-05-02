@@ -20,8 +20,8 @@ jobs:
 
        - name: instalar pluginss JMeter 
          run: |
-           curl -O https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.6/jmeter-plugins-manager-1.6.jar
-           docker ps
+            docker ps
+        # curl -O https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.6/jmeter-plugins-manager-1.6.jar
         # jmeter -n -t jmeter/Example 500 threads.jmx -l resultados.jtl
         # jmeter -g resultados.jtl -e -o report_folder
        - name: correr pruebas jmeter

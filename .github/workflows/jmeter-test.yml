@@ -7,9 +7,9 @@ on:
 jobs:
   notify-slack:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
         uses: Ilshidur/action-slack@master
         with:
           args: |
-            Hola, las pruebas de estres con Lirmi en Pre dempezaron  a correr en unos minutos veran el resultado en este mismo canal  
+            Hola, las pruebas de estres con Lirmi en Pre ya empezaron  a correr, en unos minutos veran el resultado en este mismo canal  
           # file: captura.png
     env:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

@@ -25,7 +25,7 @@ jobs:
         # curl -O https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.6/jmeter-plugins-manager-1.6.jar
        - name: ejecutar pruebas jmeter
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
   jmeter-lirmi-test-2:
@@ -42,7 +42,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
   jmeter-lirmi-test-3:
@@ -59,7 +59,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
   jmeter-lirmi-test-4:
@@ -76,7 +76,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
    
   jmeter-lirmi-test-5:
@@ -93,7 +93,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
   
   jmeter-lirmi-test-6:
@@ -110,7 +110,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
   jmeter-lirmi-test-7:
@@ -127,7 +127,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
  
   jmeter-lirmi-test-8:
@@ -144,7 +144,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
   jmeter-lirmi-test-9:
@@ -161,7 +161,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
  
@@ -179,7 +179,7 @@ jobs:
 
        - name: Ejecutar pruebas JMeter 
          run: |
-           jmeter -n -t jmeter/Thread_Group.jmx -l resultados.jtl
+           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
  # - name: Generar archivo CSV desde JTL

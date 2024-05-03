@@ -41,7 +41,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           # SLACK_MESSAGE: 'Resultado de la prueba'
           SLACK_TITLE: Resultados de la Prueba
-    # jmeter-lirmi-test-2:
+    # jmmeter-lirmi-test-2:
   #     runs-on: ubuntu-latest
   #     # strategy:
   #     #  matrix:

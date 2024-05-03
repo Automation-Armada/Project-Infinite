@@ -27,10 +27,7 @@ jobs:
            jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
-  slackNotification:
-  
-    name: Slack Notification
-     
+  slackNotification: 
     runs-on: ubuntu-latest
     needs: [jmeter-lirmi-test]
     steps:

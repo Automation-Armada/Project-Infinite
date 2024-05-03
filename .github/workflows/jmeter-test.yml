@@ -24,7 +24,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-report-${{ matrix.1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }}
+          name: test-report-${{ matrix }}
           path: | 
             resultados.jtl
             report_folder

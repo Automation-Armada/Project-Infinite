@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  notify-slack:
+  slackNotification:
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:
@@ -26,6 +26,7 @@ jobs:
       matrix:
         ejecuciones: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     runs-on: ubuntu-latest
+    needs: slackNotification
     container:
       image: justb4/jmeter:latest
 
@@ -45,7 +46,7 @@ jobs:
             resultados.jtl
             report_folder
             resultados.csv
-  slackNotification:
+  slackNotification_2:
     name: Notificación en Slack
     runs-on: ubuntu-latest
     needs: [jmeter-lirmi-test]

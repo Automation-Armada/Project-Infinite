@@ -6,11 +6,10 @@ on:
 
 jobs:
   jmeter-lirmi-test:
+    strategy:
+      matrix:
+        ejecuciones: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     runs-on: ubuntu-latest
-     # strategy:
-     #  matrix:
-     #    os: [ubuntu-latest, macos-latest]
-
     container:
        image: justb4/jmeter:latest
 
@@ -28,159 +27,159 @@ jobs:
            jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
            jmeter -g resultados.jtl -e -o report_folder
 
-  jmeter-lirmi-test-2:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-2:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
 
-  jmeter-lirmi-test-3:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-3:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
 
-  jmeter-lirmi-test-4:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-4:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
    
-  jmeter-lirmi-test-5:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-5:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
   
-  jmeter-lirmi-test-6:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-6:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
 
-  jmeter-lirmi-test-7:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-7:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
  
-  jmeter-lirmi-test-8:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-8:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
 
-  jmeter-lirmi-test-9:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-9:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
 
  
-  jmeter-lirmi-test-10:
-      runs-on: ubuntu-latest
-      # strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest]
+  # jmeter-lirmi-test-10:
+  #     runs-on: ubuntu-latest
+  #     # strategy:
+  #     #  matrix:
+  #     #    os: [ubuntu-latest, macos-latest]
 
-      container:
-       image: justb4/jmeter:latest
+  #     container:
+  #      image: justb4/jmeter:latest
 
-      steps:
-       - uses: actions/checkout@v4
+  #     steps:
+  #      - uses: actions/checkout@v4
 
-       - name: Ejecutar pruebas JMeter 
-         run: |
-           jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
-           jmeter -g resultados.jtl -e -o report_folder
+  #      - name: Ejecutar pruebas JMeter 
+  #        run: |
+  #          jmeter -n -t jmeter/HTTP_Request.jmx -l resultados.jtl
+  #          jmeter -g resultados.jtl -e -o report_folder
 
  # - name: Generar archivo CSV desde JTL
        #   run: |

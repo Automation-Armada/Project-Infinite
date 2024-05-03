@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Ejecutar pruebas JMeter
         run: |
-          jmeter -n -t jmeter/Test_Planifica_Lirmi.jmx -l resultados.jtl
+          jmeter -n -t jmeter/planificación(clase_clase)pre(10mil) (1).jmx -l resultados.jtl
           jmeter -g resultados.jtl -e -o report_folder
 
       - name: Upload test report

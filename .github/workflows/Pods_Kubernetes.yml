@@ -8,9 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: windows-latest
-    container:
-      image: lachlanevenson/k8s-kubectl:latest
-      options: --privileged  
+    # container:
+    #   image: lachlanevenson/k8s-kubectl:latest
+    #   options: --privileged  
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

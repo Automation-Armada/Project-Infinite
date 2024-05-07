@@ -17,11 +17,13 @@ jobs:
 
       - name: Install kubectl
         run: |
-         mkdir -p ~/.kube  
-         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"  # Descargar kubectl
-         chmod +x ./kubectl  
-         mv ./kubectl /usr/local/bin/kubectl  # Mover kubectl al directorio de comandos
-         kubectl version --client  
+         curl.exe -LO "https://dl.k8s.io/release/v1.30.0/bin/windows/amd64/kubectl.exe"
+         curl.exe -LO "https://dl.k8s.io/v1.30.0/bin/windows/amd64/kubectl.exe.sha256"
+         CertUtil -hashfile kubectl.exe SHA256
+         type kubectl.exe.sha256
+          $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
+          kubectl version --client
+          kubectl version --client --output=yaml
 
       - name: Check Kubernetes Cluster
         if: github.ref == 'refs/heads/moria' 

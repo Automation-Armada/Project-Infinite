@@ -25,12 +25,6 @@ jobs:
           kubectl version --client
           kubectl version --client --output=yaml
 
-      - name: Check Kubernetes Cluster
-        if: github.ref == 'refs/heads/moria' 
-        run: |
-          kubectl get pods -A | grep -v -E 'Running|Completed|Terminating'
-          kubectl get hpa -n prod-cl | grep -v keda | awk '{ print $1, "\t", $2, "\t", $3, "\t", $4, "\t", $5, "\t", $6, "\t", $7 }'
-          # kubectl get hpa -n prod-cl | grep -v keda | awk '{ print $1, "\t", $2, "\t", $3, "\t", $4, "\t", $5, "\t", $6, "\t", $7 }' | sort -nr -k 6 | grep -E '75|80|90|100' | grep -E 'artemis|export|bob|roshi|flexo'
       - name: install Minikube
         run: |
           New-Item -Path 'c:\' -Name 'minikube' -ItemType Directory -Force
@@ -39,9 +33,16 @@ jobs:
           if ($oldPath.Split(';') -inotcontains 'C:\minikube'){
           [Environment]::SetEnvironmentVariable('Path', $('{0};C:\minikube' -f $oldPath), [EnvironmentVariableTarget]::Machine)
           }
+          minikube start
+      # - name: Check Kubernetes Cluster
+      #   if: github.ref == 'refs/heads/moria' 
+      #   run: |
+      #     kubectl get pods -A | grep -v -E 'Running|Completed|Terminating'
+      #     kubectl get hpa -n prod-cl | grep -v keda | awk '{ print $1, "\t", $2, "\t", $3, "\t", $4, "\t", $5, "\t", $6, "\t", $7 }'
+      #     # kubectl get hpa -n prod-cl | grep -v keda | awk '{ print $1, "\t", $2, "\t", $3, "\t", $4, "\t", $5, "\t", $6, "\t", $7 }' | sort -nr -k 6 | grep -E '75|80|90|100' | grep -E 'artemis|export|bob|roshi|flexo'
    
-      - name: Extract Pods
-        if: github.ref == 'refs/heads/moria' 
-        run: |
-          kubectl get pods -A > pods.txt
-          cat pods.txt
+      # - name: Extract Pods
+      #   if: github.ref == 'refs/heads/moria' 
+      #   run: |
+      #     kubectl get pods -A > pods.txt
+      #     cat pods.txt

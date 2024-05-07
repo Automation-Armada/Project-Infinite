@@ -15,13 +15,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install kubectl
-        run: |
-         mkdir -p ~/.kube  
-         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"  # Descargar kubectl
-         chmod +x ./kubectl  
-         mv ./kubectl /usr/local/bin/kubectl  # Mover kubectl al directorio de comandos
-         kubectl version --client  
+      # - name: Install kubectl
+      #   run: |
+      #    mkdir -p ~/.kube  
+      #    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"  # Descargar kubectl
+      #    chmod +x ./kubectl  
+      #    mv ./kubectl /usr/local/bin/kubectl  # Mover kubectl al directorio de comandos
+      #    kubectl version --client  
       - name: Check Kubernetes Cluster
         if: github.ref == 'refs/heads/moria' 
         run: |

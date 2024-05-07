@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: lachlanevenson/k8s-kubectl:latest
-      options: --privileged  # Habilitar privilegios para ejecutar kubectl
+      options: --privileged  
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

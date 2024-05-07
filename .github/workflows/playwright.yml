@@ -17,9 +17,10 @@ jobs:
       
       - name: Configure kubectl
         run: |
-          echo "$KUBE_CONFIG" > $HOME/.kube/config  # Configurar el archivo de configuración de kubectl
-          kubectl version --client  # Verificar la versión de kubectl
-
+         kubectl get pods -A | grep -v -E 'Running|Completed|Terminating'
+         kubectl get hpa -n prod-cl | grep -v keda | awk '{ print $1, "\t", $2, "\t", $3, "\t", $4, "\t", $5, "\t", $6, "\t", $7 }'
+         kubectl get hpa -n prod-cl | grep -v keda | awk '{ print $1, "\t", $2, "\t", $3, "\t", $4, "\t", $5, "\t", $6, "\t", $7 }' | sort -nr -k 6 | grep -E '75|80|90|100' | grep -E 'artemis|export|bob|roshi|flexo'
+         
       # Aquí puedes agregar más pasos para interactuar con tu clúster de Kubernetes usando kubectl
 # on:
 #   # schedule:

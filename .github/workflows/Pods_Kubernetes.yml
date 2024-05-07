@@ -17,10 +17,11 @@ jobs:
 
       - name: Install kubectl
         run: |
-          sudo apt-get update && sudo apt-get install -y kubectl  # Instalar kubectl en el contenedor
-          echo "$KUBE_CONFIG" > $HOME/.kube/config  # Configurar el archivo de configuración de kubectl
-          kubectl version --client  # Verificar la versión de kubectl
-
+         mkdir -p ~/.kube  
+         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"  # Descargar kubectl
+         chmod +x ./kubectl  
+         mv ./kubectl /usr/local/bin/kubectl  # Mover kubectl al directorio de comandos
+         kubectl version --client  
       - name: Check Kubernetes Cluster
         if: github.ref == 'refs/heads/moria' 
         run: |

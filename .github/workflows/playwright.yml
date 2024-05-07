@@ -1,3 +1,26 @@
+name: Kubernetes Job
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: lachlanevenson/k8s-kubectl:latest
+      options: --privileged  # Habilitar privilegios para ejecutar kubectl
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Configure kubectl
+        run: |
+          echo "$KUBE_CONFIG" > $HOME/.kube/config  # Configurar el archivo de configuración de kubectl
+          kubectl version --client  # Verificar la versión de kubectl
+
+      # Aquí puedes agregar más pasos para interactuar con tu clúster de Kubernetes usando kubectl
 # on:
 #   # schedule:
 #   #   - cron: '30 * * * *' 

@@ -31,6 +31,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18'
+      
       - name: Cache Playwright dependencies
         uses: actions/cache@v4
         with:
@@ -38,6 +39,7 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
+      
       - name: Install Playwright
         run: npx playwright install
 

@@ -1,39 +1,44 @@
+name: Automated Testing
 
-      
-            name: Automated Testing
+on:
+  push:
+    branches:
+      - playwright
+  pull_request:
+    branches:
+      - playwright
 
-            on:
-              push:
-                branches:
-                  - playwright
-              pull_request:
-                branches:
-                  - playwright
-            
-            jobs:
-              login:
-                runs-on: ubuntu-latest
-            
-                strategy:
-                  matrix:
-                    account-index: [0, 1, 2, 3, 4]
-            
-                steps:
-                  - name: Checkout code
-                    uses: actions/checkout@v2
-            
-                  - name: Install Node.js
-                    uses: actions/setup-node@v2
-                    with:
-                      node-version: '18'
-            
-                  - name: Install dependencies
-                    run: npm install
-            
-                  - name: Install Playwright
-                    run: npx install playwright
-            
-                  - name: Run tests
-                    run: |
-                      npm test -- --format-options '{"snippetInterface": "synchronous"}' -- --accountIndex ${{ matrix.account-index }}
-            
+jobs:
+  login:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        account-index: [0, 1, 2, 3, 4]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Cache Playwright dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: Install Playwright
+        run: npx playwright install
+
+      - name: Run tests
+        run: |
+          npm test -- --format-options '{"snippetInterface": "synchronous"}' -- --accountIndex ${{ matrix.account-index }}

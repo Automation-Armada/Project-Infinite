@@ -5,7 +5,7 @@
         },
         "paths": [
             
-            "src/test/features/Login1.feature"
+            "src/test/features/ClarityReport.feature"
             
         ],
         "publisQuiet":true,

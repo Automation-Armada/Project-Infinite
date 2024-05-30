@@ -31,7 +31,7 @@
                     run: npm install
             
                   - name: Install Playwright
-                    run: npX install playwright
+                    run: npx install playwright
             
                   - name: Run tests
                     run: |

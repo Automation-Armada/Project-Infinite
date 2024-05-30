@@ -30,8 +30,18 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '20'
       
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+      - name: Install dependencies
+        run: npm install
+
       - name: Cache Playwright dependencies
         uses: actions/cache@v4
         with:
@@ -39,12 +49,11 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
-      
       - name: Install Playwright
         run: npx playwright install
 
-      - name: Install dependencies
-        run: npm install
+      - name: Run Infinite tests
+        run: npm run test
 
       # Resto de tus pasos de configuración...
 

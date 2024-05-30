@@ -1,28 +1,43 @@
-# Feature: Lirmi Test
+# Feature: Login with multiple accounts
 
-# Background: Login
-# Given El usuario abre la url
-# Given Completa el campo 'Correo electronico' con "alan.duarte@lirmi.com"
-# And Completa el  campo 'Contraseña' con 'alan2024'
-# And El usuario hace click en 'Submit'
-# Then La pagina carga corectamente
+#   Scenario Outline: Login with different accounts
+#     Given I login with account <accountIndex>
+#     # Agrega más pasos aquí si es necesario
 
-# Scenario:Mis planificaciones
-# Given El usuario hace click en mi planificaciones 'Mis planificaciones'
-# When El usuario click en crear 'Crear' 
-# When El usuario especifica la unidad
-# When El usuario hacer click en unidad 'Unidad'
-# Then 'Mis planificaciones' se muestra  
-
-# Scenario:Crear evaluacion
-# Given El usuario hace click en crar evaluacion 'Crear evaluacion'
-# When El usuario hace click en escrita 'Escrita'
-# When El usuario hace click en parcial 'Parcial
-# When El usuario hace click en Idioma' Idioma Extranjero: Inglés' 
-# When El usuario hace click en Laboral'Laboral 1 A'
-# When El usuario hace click en crear'Crear'
-# Then Se muestra el titulo 'Creando evaluación'
-# # Given El usuario hace click "en crear ojetivo de Aprendizaje"
-# # Given El usuario describe el objetivo de Aprendizaje con "Test Playwright"
-# # When El usuario oprime "Crear"
+#     Examples:
+#       | accountIndex |
+#       | 0            |
+#       | 1            |
+#       | 2            |
+#       | 3            |
+#       | 4            |
+#       | 5            |
+#       | 6            |
+#       | 7            |
+#       | 8            |
+#       | 9            |
+#       | 10           |
+#       | 11           |
+#       | 12           |
+#       | 13           |
+#       | 14           |
+#       | 15           |
+#       | 16           |
+#       | 17           |
+#       | 18           |
+#       | 19           |
+#       | 20           |
+#       | 21           |
+#       | 22           |
+#       | 23           |
+#       | 24           |
+#       | 25           |
+#       | 26           |
+#       | 27           |
+#       | 28           |
+#       | 29           |
+#       | 30           |
+#       | 31           |
+#       | 32           |
+#       | 33           |
 

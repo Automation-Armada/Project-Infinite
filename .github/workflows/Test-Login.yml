@@ -1,70 +1,39 @@
-name: Test_Login
 
-on:
-  push:
-    branches:
-      - playwright
-  pull_request:
-    branches:
-      - playwright
+      name: Automated Testing
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        accountIndex:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          - 9
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Cache Playwright dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
-      - name: Install Playwright
-        run: npx playwright install
+      on:
+        push:
+          branches:
+            - playwright
+        pull_request:
+          branches:
+            - playwright
       
-      - name: Run tests
-        run: npm run test 
-
-    #   - name: Upload test report
-    #     uses: actions/upload-artifact@v4
-    #     if: always()
-    #     with:
-    #       name: test-report-${{ matrix.os }}
-    #       path: |
-    #         ./assets
-    #         ./features
-    #         ./test-result
-    #         ./test-results
-    #         index.html
-
-    #   - name: Upload test results
-    #     uses: actions/upload-artifact@v2
-    #     with:
-    #       name: test-results
-    #       path: test-results
+      
+      jobs:
+        automated-tests:
+          runs-on: ubuntu-latest
+      
+          strategy:
+            matrix:
+              account-index: [0, 1, 2, 3, 4]
+      
+          steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+      
+            - name: Install Node.js
+              uses: actions/setup-node@v2
+              with:
+                node-version: '14'
+      
+            - name: Install dependencies
+              run: npm install
+      
+            - name: Install Playwright
+              run: npm install playwright
+      
+            - name: Run tests
+              run: |
+                npm test -- --accountIndex ${{ matrix.account-index }}
+      

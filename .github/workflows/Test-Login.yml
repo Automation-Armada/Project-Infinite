@@ -3,10 +3,10 @@ name: Run Tests
 on:
   push:
     branches:
-      - Test_Login
+      - master
   pull_request:
     branches:
-      - Test_Login
+      - master
 
 jobs:
   test:

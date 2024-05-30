@@ -6,7 +6,6 @@
   "scripts": {
     "pretest": "cat starship.txt",
     "test": "cucumber-js test || true",
-    "posttest": "upload.sh || true",
     "posttest-reports": "npx ts-node src/helper/reports.ts"
   },
   "keywords": [],

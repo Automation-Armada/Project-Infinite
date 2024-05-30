@@ -49,8 +49,8 @@ jobs:
         run: npx playwright install
       
       - name: Run tests
-        run: npm test --profile default --tags "@login" --format json:test-results/cucumber_report.json --format html:test-results/cucumber-report.html --matrix-account-index ${{ matrix.accountIndex }}
-
+        run: npm test 
+        
     #   - name: Upload test report
     #     uses: actions/upload-artifact@v4
     #     if: always()

@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        accountIndex: [0, 1, 2, 3, 4]
+        account-index: [0, 1, 2, 3, 4]
 
     steps:
       - name: Checkout code
@@ -41,4 +41,4 @@ jobs:
 
       - name: Run tests
         run: |
-          npm test -- --format-options '{"snippetInterface": "synchronous"}' -- --accountIndex ${{ matrix.accountindex }}
+          npm test -- --format-options '{"snippetInterface": "synchronous"}' -- --accountIndex ${{ matrix.account-index }}

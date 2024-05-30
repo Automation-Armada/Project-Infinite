@@ -16,6 +16,13 @@ jobs:
       matrix:
         account-index: [0, 1, 2, 3, 4]
 
+    env:
+      USERNAME_0: alejandro.gamboa@lirmi.com
+      PASSWORD_0: secret
+      USERNAME_1: alex.silva@lirmi.com
+      PASSWORD_1: secret
+      # Define más variables de entorno para cada cuenta adicional si es necesario
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,10 +31,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
       - name: Cache Playwright dependencies
         uses: actions/cache@v4
         with:
@@ -35,10 +38,14 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
-
       - name: Install Playwright
         run: npx playwright install
 
-      - name: Run tests
+      - name: Install dependencies
+        run: npm install
+
+      # Resto de tus pasos de configuración...
+
+      - name: Run tests with different accounts
         run: |
-          npm test -- --format-options '{"snippetInterface": "synchronous"}' -- --accountIndex ${{ matrix.account-index }}
+          npm test --username "$USERNAME_${{ matrix.account-index }}" --password "$PASSWORD_${{ matrix.account-index }}"

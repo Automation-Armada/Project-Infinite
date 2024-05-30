@@ -4,8 +4,8 @@
             "snippetInterface": "async-await"
         },
         "paths": [
-            "src/test/features/Login5.feature"
             
+            "src/test/features/*.feature"
             
         ],
         "publisQuiet":true,

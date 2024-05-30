@@ -1,25 +1,24 @@
 import { Given, When } from "@cucumber/cucumber";
 import { pageFixture } from "../../hooks/pageFixture";
 
-  Given('El usuario abre la pAgina', async function () {
+Given('fikdnlfsñfwek', async function () {
     await pageFixture.page.goto("https://login.lirmipre.com/login"); 
-  });
+});
 
 
-  Given('Se logea', async function () {
+  Given('oldfofeoemo', async function () {
     const usernameInput = await pageFixture.page.locator('//*[@id="email"]');
-    await usernameInput.fill('sebapinamoraga@gmail.com');
+    await usernameInput.fill('camilo.mora@lirmi.com');
         
   });
 
-
-  Given('completa el campO', async function () {
+  Given('fdkfmdkfmkldmflm', async function () {
     const usernameInput = await pageFixture.page.locator('//*[@id="password"]');
     await usernameInput.fill('secret');
     });
 
 
-  When('Hace clicK', async function () {
+  When('emdlsmdlmlmlm', async function () {
     const practiceButton = await pageFixture.page.locator('//*[@id="submit"]');
     await practiceButton.click();
   });

@@ -50,4 +50,4 @@ jobs:
 
       - name: Run tests with different accounts
         run: |
-          npm test --username "$USERNAME_${{ matrix.account-index }}" --password "$PASSWORD_${{ matrix.account-index }}"
+          npm test 

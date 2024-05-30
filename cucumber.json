@@ -5,7 +5,7 @@
         },
         "paths": [
             
-            "src/test/features/lirmi.feature"
+            "src/test/features/ClarityReport.feature"
             
         ],
         "publisQuiet":true,

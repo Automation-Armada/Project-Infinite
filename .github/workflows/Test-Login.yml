@@ -44,13 +44,10 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
-
-      - name: Install Playwright
-        run: npx playwright install
       
       - name: Run tests
-        run: npm test 
-        
+        run: npm run test 
+
     #   - name: Upload test report
     #     uses: actions/upload-artifact@v4
     #     if: always()

@@ -1,0 +1,23 @@
+name: Covenant
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  capture-errors-and-info:
+    runs-on: ubuntu-latest
+    name: Capture Errors and Info
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v2
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar script
+        run: npm run covenant
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -61,15 +61,18 @@ jobs:
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
             mensaje="Se encontraron errores"
+            emoji=":x:" # Emoji de peligro
             color="16711680" # Rojo para errores
           elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
             mensaje="¡Advertencia encontrada!"
+            emoji=":warning:" # Emoji de cuidado
             color="16776960" # Amarillo para advertencias
           else
             mensaje=""
+            emoji=""
             color=""
           fi
           if [[ "$mensaje" != "" ]]; then
-            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color}]}"
+            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color, \"footer\": {\"text\": \"$emoji\"}}]}"
             curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi

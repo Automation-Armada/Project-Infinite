@@ -51,15 +51,16 @@ jobs:
         run: |
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
-            mensaje="¡Se encontraron errores!\n\n$contenido\n\n[Pipeline](https://github.com/usuario/repo/actions/runs/${{ github.run_id }})"
+            mensaje="¡Se encontraron errores!\n\n$contenido"
             color="16711680" # Rojo para errores
           elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
-            mensaje="¡Advertencia encontrada!\n\n$contenido\n\n[Pipeline](https://github.com/usuario/repo/actions/runs/${{ github.run_id }})"
+            mensaje="¡Advertencia encontrada!\n\n$contenido"
             color="16776960" # Amarillo para advertencias
           else
             mensaje=""
             color=""
           fi
           if [[ "$mensaje" != "" ]]; then
-            curl -X POST -H 'Content-Type: application/json' -d "{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"$mensaje\", \"embeds\": [{\"title\": \"$mensaje\", \"color\": \"$color\"}]}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+            mensaje="$mensaje\n[Pipeline](https://github.com/usuario/repo/actions/runs/${{ github.run_id }})"
+            curl -X POST -H 'Content-Type: application/json' -d "{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"$mensaje\", \"embeds\": [{\"title\": \"Resultado del Pipeline\", \"color\": \"$color\"}]}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi

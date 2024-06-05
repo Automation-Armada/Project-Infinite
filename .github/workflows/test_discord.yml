@@ -15,11 +15,7 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-      - uses: sarisia/actions-status-discord@v1
-        if: always()
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        with:
-          nodetail: true
-          title: "We did it!"
-          color: 0xff91a4
+      - name: slack  
+        uses: sarisia/actions-status-discord@v1
+      - run: |
+         curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}'https://hooks.slack.com/services/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

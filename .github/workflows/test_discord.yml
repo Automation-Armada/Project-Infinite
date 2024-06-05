@@ -13,7 +13,7 @@ jobs:
       - name: Ejecutar go test y guardar resultado
         id: paso1
         run: |
-          go test ./... > paso1_output.txt || true
+          go test ./... > paso1_output.txt 2>&1 || true
           cat paso1_output.txt
 
       - name: Guardar archivo como artefacto
@@ -23,16 +23,13 @@ jobs:
           name: all_steps_output
           path: paso1_output.txt
 
-      - name: Leer contenido del archivo
-        id: leer-archivo
-        run: |
-          echo "::set-output name=contenido::$(cat paso1_output.txt)"
-
-      - name: Enviar mensaje a Discord
+      - name: Descargar artefacto
         if: always()
-        uses: sarisia/actions-status-discord@v1
+        uses: actions/download-artifact@v2
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: |
-            Resultados de los pasos:
-            ${{ steps.leer-archivo.outputs.contenido }}
+          name: all_steps_output
+
+      - name: Enviar archivo a Discord
+        if: always()
+        run: |
+          curl -X POST -H 'Content-Type: application/octet-stream' --data-binary @paso1_output.txt ${{ secrets.DISCORD_WEBHOOK }}

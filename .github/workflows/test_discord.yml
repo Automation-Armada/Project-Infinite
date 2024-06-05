@@ -62,10 +62,6 @@ jobs:
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
             mensaje="¡Se encontraron errores!"
             color="16711680" # Rojo para errores
-            uses: sarisia/actions-status-discord@v1
-            with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          color: "16711680"
           elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
             mensaje="¡Advertencia encontrada!"
             color="16776960" # Amarillo para advertencias

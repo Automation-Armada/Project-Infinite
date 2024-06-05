@@ -15,8 +15,11 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-
       - uses: sarisia/actions-status-discord@v1
         if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          webhook: ${{ secrets.SLACK_WEBHOOK }}
+          nodetail: true
+          title: "We did it!"
+          color: 0xff91a4

@@ -28,8 +28,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: all_steps_output
-
-      - name: Enviar archivo a Discord
-        if: always()
-        run: |
+          run: |
           curl -X POST -H 'Content-Type: application/octet-stream' --data-binary @paso1_output.txt ${{ secrets.DISCORD_WEBHOOK }}
+

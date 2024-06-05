@@ -1,16 +1,16 @@
-name: Hola Mundo a Discord
+name: Test Discord
 
 on:
   push:
     branches:
-      - master  # Cambiar al nombre de la rama donde deseas desencadenar el evento
+      - master  
 
 jobs:
   enviar-mensaje:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Hola Mundo
+      - name: Test discord
         run: echo "¡Hola Mundo desde GitHub Actions!"
         
       - uses: sarisia/actions-status-discord@v1

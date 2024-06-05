@@ -1,31 +1,23 @@
-name: GitHub Action Status
+name: Hola Mundo a Discord
 
 on:
   push:
     branches:
-      - master
-  workflow_run:
-    workflows: ["NombreDeTuWorkflow"]
-    types:
-      - completed
+      - master  # Cambiar al nombre de la rama donde deseas desencadenar el evento
 
 jobs:
-  notify_discord:
+  enviar-mensaje:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Check for errors
-      run: echo "No hay errores"  # Este paso no realizará ninguna comprobación de errores, solo es un marcador.
-
-    - name: Send Discord Notification
-      if: failure()  # Esta notificación solo se enviará si hay errores en los pasos anteriores.
-      uses: appleboy/discord-action@master
-      with:
-        webhook_id: ${{ secrets.DISCORD_WEBHOOK }}
-        content: "¡Atención! Hubo errores en la ejecución del flujo de trabajo."
-
-    - name: Send Discord Notification
-      if: success()  # Esta notificación se enviará si no hay errores en los pasos anteriores.
-      uses: appleboy/discord-action@master
-      with:
-        webhook_id: ${{ secrets.DISCORD_WEBHOOK }}
-        content: "¡Buenas noticias! El flujo de trabajo se ejecutó sin errores."
+      - name: Hola Mundo
+        run: echo "¡Hola Mundo desde GitHub Actions!"
+      
+      - name: Enviar mensaje a Discord
+        env:
+          WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }} # Asegúrate de configurar este secreto en la configuración de tu repositorio
+        run: |
+          curl -X POST \
+          -H "Content-Type: application/json" \
+          -d '{"content": "¡Hola Mundo desde GitHub Actions!"}' \
+          $WEBHOOK_URL

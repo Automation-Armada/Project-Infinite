@@ -31,16 +31,11 @@ jobs:
           name: all_steps_output
           path: all_steps_output.txt
 
-      - name: Leer contenido del archivo
-        id: leer-archivo
-        run: |
-          echo "::set-output name=contenido::$(cat all_steps_output.txt)"
-          
-      - name: Enviar mensaje a Discord
-        if: always()
-        uses: sarisia/actions-status-discord@v1
+      - name: Descargar artefacto
+        uses: actions/download-artifact@v2
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: |
-            Resultados de los pasos:
-            ${{ steps.leer-archivo.outputs.contenido }}
+          name: all_steps_output
+
+      - name: Enviar archivo a Discord
+        run: |
+          curl -X POST -H 'Content-Type: application/octet-stream' --data-binary @all_steps_output.txt ${{ secrets.DISCORD_WEBHOOK }}

@@ -32,4 +32,4 @@ jobs:
       - name: Enviar archivo a Discord
         if: always()
         run: |
-          curl -X POST -H 'Content-Type: application/octet-stream' --data-binary @paso1_output.txt ${{ secrets.DISCORD_WEBHOOK }}
+              curl -X POST -H 'Content-Type: text/plain' --data-binary @paso1_output.txt ${{ secrets.DISCORD_WEBHOOK }}

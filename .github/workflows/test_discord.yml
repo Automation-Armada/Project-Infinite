@@ -29,12 +29,14 @@ jobs:
         with:
           name: all_steps_output
           
-      - name: Run script
-        env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+      - name: Leer contenido del archivo
+        id: leer-archivo
         run: |
-          TOKEN="${DISCORD_TOKEN}"
-          PHOTO_FILE="./paso1_output.txt"  # Corregir el nombre del archivo
-          CHANNEL_ID="1247924192301678654"   
+          contenido=$(cat paso1_output.txt)
+          echo "::set-output name=contenido::$contenido"
 
-          curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+      - name: Enviar mensaje a Discord
+        if: always()
+        run: |
+          contenido="${{ steps.leer-archivo.outputs.contenido }}"
+          curl -X POST -H 'Content-Type: application/json' -d "{\"content\": \"$contenido\"}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ

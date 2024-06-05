@@ -16,13 +16,7 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
-      - name: Send status to Discord
-        uses: sarisia/actions-status-discord@v1
+      - uses: sarisia/actions-status-discord@v1
         if: always()
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         with:
-          nodetail: true
-          title: "We did it!"
-          color: 0xff91a4
-          text: "¡prueba con go!"
+          webhook: ${{ secrets.SLACK_WEBHOOK }}

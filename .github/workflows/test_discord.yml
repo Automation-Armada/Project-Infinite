@@ -13,7 +13,7 @@ jobs:
       - name: Instalar Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.17' # Puedes especificar la versión de Go que necesitas
+          go-version: '1.17' 
 
       - name: Inicializar módulo Go
         run: go mod init nombre-del-modulo
@@ -59,12 +59,9 @@ jobs:
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
           advertencia="${{ steps.identificar-errores.outputs.advertencia }}"
           if [[ "$advertencia" == "true" ]]; then
-            color="16776960" # Amarillo para advertencias
             mensaje_advertencia="¡Advertencia encontrada!"
-            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje_advertencia\", \"description\": \"$contenido\", \"color\": $color}]}"
           else
-            color="16711680" # Rojo para errores
             mensaje_advertencia=""
-            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"Se encontraron errores\", \"description\": \"$contenido\", \"color\": $color}]}"
           fi
+          message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje_advertencia\", \"description\": \"$contenido\", \"color\": 16711680}]}"
           curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ

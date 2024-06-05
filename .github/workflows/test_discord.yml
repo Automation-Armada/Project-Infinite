@@ -20,14 +20,22 @@ jobs:
         run: |
           echo "Este es el segundo paso" | tee paso2_output.txt
 
+      - name: Concatenar resultados en un archivo
+        run: |
+          cat paso1_output.txt paso2_output.txt > all_steps_output.txt
+        id: concatenar-resultados
+
+      - name: Guardar archivo como artefacto
+        uses: actions/upload-artifact@v2
+        with:
+          name: all_steps_output
+          path: all_steps_output.txt
+
       - name: Enviar mensaje a Discord
-        uses: sarisia/actions-status-discord@v1
         if: always()
+        uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           message: |
             Resultados de los pasos:
-            - Paso 1:
-              $(cat paso1_output.txt)
-            - Paso 2:
-              $(cat paso2_output.txt)
+            $(cat all_steps_output.txt)

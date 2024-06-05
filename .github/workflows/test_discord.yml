@@ -18,14 +18,14 @@ jobs:
 
     - name: Send Discord Notification
       if: failure()  # Esta notificación solo se enviará si hay errores en los pasos anteriores.
-      uses: distributhor/discord-webhook@v1
+      uses: appleboy/discord-action@master
       with:
-        webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+        webhook_id: ${{ secrets.DISCORD_WEBHOOK }}
         content: "¡Atención! Hubo errores en la ejecución del flujo de trabajo."
 
     - name: Send Discord Notification
       if: success()  # Esta notificación se enviará si no hay errores en los pasos anteriores.
-      uses: distributhor/discord-webhook@v1
+      uses: appleboy/discord-action@master
       with:
-        webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+        webhook_id: ${{ secrets.DISCORD_WEBHOOK }}
         content: "¡Buenas noticias! El flujo de trabajo se ejecutó sin errores."

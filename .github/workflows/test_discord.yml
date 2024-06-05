@@ -10,24 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ejecutar go test y guardar resultado
-        id: paso1
-        run: |
-          go test ./... > paso1_output.txt 2>&1 || true
-          cat paso1_output.txt
-
-      - name: Guardar archivo como artefacto
-        if: always()
-        uses: actions/upload-artifact@v2
+      - name: Descargar artefacto
+        uses: actions/download-artifact@v2
         with:
           name: all_steps_output
           path: paso1_output.txt
 
-      - name: Descargar artefacto
-        if: always()
-        uses: actions/download-artifact@v2
-        with:
-          name: all_steps_output
-          run: |
-          curl -X POST -H 'Content-Type: application/octet-stream' --data-binary @all_steps_output ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Leer contenido del archivo
+        id: leer-archivo
+        run: |
+          contenido=$(cat paso1_output.txt)
+          echo "::set-output name=contenido::$contenido"
 
+      - name: Enviar mensaje a Discord
+        if: always()
+        run: |
+          contenido="${{ steps.leer-archivo.outputs.contenido }}"
+          curl -X POST -H 'Content-Type: application/json' -d "{\"content\": \"$contenido\"}" ${{ secrets.DISCORD_WEBHOOK }}

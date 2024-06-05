@@ -3,7 +3,7 @@ name: Slack Notification
 on: 
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:  # Agregar el evento de workflow_dispatch para activación manual
 
 jobs:

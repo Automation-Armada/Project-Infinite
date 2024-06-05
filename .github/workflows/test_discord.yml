@@ -13,7 +13,7 @@ jobs:
       - name: Ejecutar go test y guardar resultado
         id: paso1
         run: |
-          go test ./... > paso1_output.txt || true
+          go test ./... > paso1_output.txt 2>&1 || true
           cat paso1_output.txt
 
       - name: Guardar archivo como artefacto

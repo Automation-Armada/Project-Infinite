@@ -13,7 +13,7 @@ jobs:
       - name: Ejecutar go test y guardar resultado
         id: paso1
         run: |
-          go test ./... > paso1_output.txt
+          go test ./... > paso1_output.txt || true
           cat paso1_output.txt
 
       - name: Concatenar resultados en un archivo

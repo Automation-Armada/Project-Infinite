@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Go Test
+        uses: actions/checkout@v1
+      - run : |
+          go test ./... > paso1_output.txt || true
+          cat paso1_output.txt
       - name: Descargar artefacto
         uses: actions/download-artifact@v2
         with:

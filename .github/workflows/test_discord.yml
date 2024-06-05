@@ -25,3 +25,4 @@ jobs:
           nodetail: true
           title: "We did it!"
           color: 0xff91a4
+          text: "¡prueba con go!"

@@ -15,6 +15,9 @@ jobs:
         with:
           go-version: '1.17' 
 
+     # - name: Inicializar módulo Go
+     #   run: go mod init nombre-del-modulo
+
       - name: Ejecutar go test y guardar resultado
         id: paso1
         run: |
@@ -28,6 +31,12 @@ jobs:
           name: all_steps_output
           path: paso1_output.txt
 
+      - name: Descargar artefacto
+        if: always()
+        uses: actions/download-artifact@v2
+        with:
+          name: all_steps_output
+          
       - name: Leer contenido del archivo
         id: leer-archivo
         run: |
@@ -51,16 +60,17 @@ jobs:
         run: |
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
-            mensaje="¡Se encontraron errores!\n\n$contenido"
+            mensaje="¡Se encontraron errores!"
             color="16711680" # Rojo para errores
           elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
-            mensaje="¡Advertencia encontrada!\n\n$contenido"
+            mensaje="¡Advertencia encontrada!"
             color="16776960" # Amarillo para advertencias
           else
             mensaje=""
             color=""
           fi
           if [[ "$mensaje" != "" ]]; then
-            mensaje="$mensaje\n[Pipeline](https://github.com/usuario/repo/actions/runs/${{ github.run_id }})"
-            curl -X POST -H 'Content-Type: application/json' -d "{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"$mensaje\", \"embeds\"}]}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color}]}"
+            curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi
+	

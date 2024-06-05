@@ -1,0 +1,26 @@
+name: Test Discord
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Test_Discord:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: Send status to Discord
+        uses: sarisia/actions-status-discord@v1
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          nodetail: true
+          title: "We did it!"
+          color: 0xff91a4

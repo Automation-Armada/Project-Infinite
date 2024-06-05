@@ -34,8 +34,7 @@ jobs:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
           TOKEN="${DISCORD_TOKEN}"
-          PHOTO_FILE="./all_steps_outputt"  
+          PHOTO_FILE="./paso1_output.txt"  # Corregir el nombre del archivo
           CHANNEL_ID="1247924192301678654"   
 
           curl -F "token=$TOKEN" -F "channels=$CHANNEL_ID" -F "file=@$PHOTO_FILE" https://discord.com/api/upload
-

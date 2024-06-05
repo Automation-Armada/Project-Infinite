@@ -12,12 +12,10 @@ jobs:
     steps:
       - name: Hola Mundo
         run: echo "¡Hola Mundo desde GitHub Actions!"
+        
+      - uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
       
-      - name: Enviar mensaje a Discord
-        env:
-          WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }} # Asegúrate de configurar este secreto en la configuración de tu repositorio
-        run: |
-          curl -X POST \
-          -H "Content-Type: application/json" \
-          -d '{"content": "¡Hola Mundo desde GitHub Actions!"}' \
-          $WEBHOOK_URL
+      

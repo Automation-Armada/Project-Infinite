@@ -10,12 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test discord
-        run: echo "¡Hola Mundo desde GitHub Actions!"
-        
-      - uses: sarisia/actions-status-discord@v1
+      - name: Ejecutar paso 1
+        id: paso1
+        run: |
+          echo "¡Hola Mundo desde GitHub Actions!" | tee paso1_output.txt
+
+      - name: Ejecutar paso 2
+        id: paso2
+        run: |
+          echo "Este es el segundo paso" | tee paso2_output.txt
+
+      - name: Enviar mensaje a Discord
+        uses: sarisia/actions-status-discord@v1
         if: always()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-      
-      
+          message: |
+            Resultados de los pasos:
+            - Paso 1:
+              $(cat paso1_output.txt)
+            - Paso 2:
+              $(cat paso2_output.txt)

@@ -31,6 +31,11 @@ jobs:
           name: all_steps_output
           path: all_steps_output.txt
 
+      - name: Leer contenido del archivo
+        id: leer-archivo
+        run: |
+          echo "::set-output name=contenido::$(cat all_steps_output.txt)"
+          
       - name: Enviar mensaje a Discord
         if: always()
         uses: sarisia/actions-status-discord@v1
@@ -38,4 +43,4 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           message: |
             Resultados de los pasos:
-            $(cat all_steps_output.txt)
+            ${{ steps.leer-archivo.outputs.contenido }}

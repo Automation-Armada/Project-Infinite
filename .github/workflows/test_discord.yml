@@ -10,15 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ejecutar paso 1
+      - name: Ejecutar paso 1 y guardar resultado
         id: paso1
         run: |
-          echo "¡Hola Mundo desde GitHub Actions!" | tee paso1_output.txt
+          go test/.. > paso1_output.txt
+          cat paso1_output.txt
 
-      - name: Ejecutar paso 2
+      - name: Ejecutar paso 2 y guardar resultado
         id: paso2
         run: |
-          echo "Este es el segundo paso" | tee paso2_output.txt
+          echo "Este es el segundo paso" > paso2_output.txt
+          cat paso2_output.txt
 
       - name: Concatenar resultados en un archivo
         run: |
@@ -30,12 +32,3 @@ jobs:
         with:
           name: all_steps_output
           path: all_steps_output.txt
-
-      - name: Descargar artefacto
-        uses: actions/download-artifact@v2
-        with:
-          name: all_steps_output
-
-      - name: Enviar archivo a Discord
-        run: |
-          curl -X POST -H 'Content-Type: application/octet-stream' --data-binary @all_steps_output.txt ${{ secrets.DISCORD_WEBHOOK }}

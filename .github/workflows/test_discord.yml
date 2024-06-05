@@ -1,31 +1,31 @@
-name: Slack Notification
+name: GitHub Action Status
 
-on: 
+on:
   push:
     branches:
       - master
-  workflow_dispatch:  # Agregar el evento de workflow_dispatch para activación manual
+  workflow_run:
+    workflows: ["NombreDeTuWorkflow"]
+    types:
+      - completed
 
 jobs:
-  slack_notification:
+  notify_discord:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
+    - name: Check for errors
+      run: echo "No hay errores"  # Este paso no realizará ninguna comprobación de errores, solo es un marcador.
+
+    - name: Send Discord Notification
+      if: failure()  # Esta notificación solo se enviará si hay errores en los pasos anteriores.
+      uses: distributhor/discord-webhook@v1
       with:
-        node-version: '14'
+        webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+        content: "¡Atención! Hubo errores en la ejecución del flujo de trabajo."
 
-    - name: Install dependencies
-      run: npm install
-
-    # Ejecutar tus pruebas, build, u otras acciones aquí
-
-    - name: Send Slack Notification
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Cambiar al nuevo secreto
+    - name: Send Discord Notification
+      if: success()  # Esta notificación se enviará si no hay errores en los pasos anteriores.
+      uses: distributhor/discord-webhook@v1
       with:
-        args: 'The workflow finished with ${{ job.status }} status'
+        webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+        content: "¡Buenas noticias! El flujo de trabajo se ejecutó sin errores."

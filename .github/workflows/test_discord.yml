@@ -15,8 +15,8 @@ jobs:
         with:
           go-version: '1.17' 
 
-      - name: Inicializar módulo Go
-        run: go mod init nombre-del-modulo
+     # - name: Inicializar módulo Go
+     #   run: go mod init nombre-del-modulo
 
       - name: Ejecutar go test y guardar resultado
         id: paso1
@@ -55,25 +55,25 @@ jobs:
             echo "::set-output name=advertencia::false"
           fi
 
-      - name: Enviar mensaje a Discord (Error)
-        if: steps.identificar-errores.outputs.error == 'true'
-        uses: sarisia/actions-status-discord@v1
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          color: "16711680"
-
-      - name: Enviar mensaje a Discord (Advertencia)
-        if: steps.identificar-errores.outputs.advertencia == 'true'
-        uses: sarisia/actions-status-discord@v1
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          color: "16776960"
-
-      - name: Enviar mensaje a Discord (Mensaje normal)
-        if: always() && steps.identificar-errores.outputs.advertencia != 'true' && steps.identificar-errores.outputs.error != 'true'
+      - name: Enviar mensaje a Discord
+        if: always()
         run: |
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
-          mensaje="¡Mensaje normal!"
-          pipeline_link="https://github.com/usuario/repo/actions/runs/${{ github.run_id }}"
-          message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": 16776960}], \"components\": [{\"type\": 1, \"components\": [{\"type\": 2, \"style\": 5, \"label\": \"Ver pipeline\", \"url\": \"$pipeline_link\"}]}]}"
-          curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+          if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
+            mensaje="¡Se encontraron errores!"
+            color="16711680" # Rojo para errores
+            uses: sarisia/actions-status-discord@v1
+            with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          color: "16711680"
+          elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
+            mensaje="¡Advertencia encontrada!"
+            color="16776960" # Amarillo para advertencias
+          else
+            mensaje=""
+            color=""
+          fi
+          if [[ "$mensaje" != "" ]]; then
+            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color}]}"
+            curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+          fi

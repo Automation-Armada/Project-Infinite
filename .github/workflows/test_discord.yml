@@ -1,25 +1,31 @@
-name: Test Discord and Slack
+name: Slack Notification
 
-on:
+on: 
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
+      - main
 
 jobs:
-  Test_Notifications:
+  slack_notification:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+    - name: Checkout code
+      uses: actions/checkout@v2
       
-      - name: Send status to Slack
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        with:
-          args: '{ "text": "Build and tests completed successfully!" }'
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    # Ejecutar tus pruebas, build, u otras acciones aquí
+
+    - name: Send Slack Notification
+      uses: rtCamp/action-slack-notify@v3
+      env:
+        SLACK_CHANNEL: your_slack_channel
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_WEBHOOK_URL }}
+      with:
+        args: 'The workflow finished with ${{ job.status }} status'

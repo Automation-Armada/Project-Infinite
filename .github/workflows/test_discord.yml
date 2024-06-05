@@ -26,7 +26,6 @@ jobs:
     - name: Send Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_CHANNEL: prueba-go
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Cambiar al nuevo secreto
       with:
         args: 'The workflow finished with ${{ job.status }} status'

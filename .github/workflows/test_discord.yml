@@ -1,4 +1,4 @@
-name: Test Discord
+name: Test Discord and Slack
 
 on:
   push:
@@ -9,13 +9,17 @@ on:
       - master
 
 jobs:
-  Test_Discord:
+  Test_Notifications:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v2
-      - name: slack  
-        uses: sarisia/actions-status-discord@v1
-      - run: |
-         curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}'https://hooks.slack.com/services/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
+            
+      - name: Send status to Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}

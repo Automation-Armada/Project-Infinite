@@ -16,17 +16,12 @@ jobs:
           go test ./... > paso1_output.txt || true
           cat paso1_output.txt
 
-      - name: Concatenar resultados en un archivo
-        run: |
-          cat paso1_output.txt > all_steps_output.txt
-        id: concatenar-resultados
-
       - name: Guardar archivo como artefacto
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: all_steps_output
-          path: all_steps_output.txt
+          path: paso1_output.txt
 
       - name: Descargar artefacto
         if: always()
@@ -37,4 +32,4 @@ jobs:
       - name: Enviar archivo a Discord
         if: always()
         run: |
-          curl -X POST -H 'Content-Type: application/octet-stream' --data-binary @all_steps_output.txt ${{ secrets.DISCORD_WEBHOOK }}
+          curl -X POST -H 'Content-Type: application/octet-stream' --data-binary @paso1_output.txt ${{ secrets.DISCORD_WEBHOOK }}

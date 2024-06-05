@@ -62,5 +62,5 @@ jobs:
           fi
           if [[ "$mensaje" != "" ]]; then
             mensaje="$mensaje\n[Pipeline](https://github.com/usuario/repo/actions/runs/${{ github.run_id }})"
-            curl -X POST -H 'Content-Type: application/json' -d "{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"$mensaje\", \"embeds\": [{\"title\": \"Resultado del Pipeline\", \"color\": \"$color\"}]}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+            curl -X POST -H 'Content-Type: application/json' -d "{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"$mensaje\", \"embeds\"}]}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi

@@ -70,6 +70,7 @@ jobs:
             color=""
           fi
           if [[ "$mensaje" != "" ]]; then
-           contenido="${{ steps.leer-archivo.outputs.contenido }}"
-          curl -X POST -H 'Content-Type: application/json' -d "{\"content\": \"$contenido\"}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+            pipeline_link="https://github.com/usuario/repo/actions/runs/${{ github.run_id }}"
+            mensaje="$mensaje\n[Pipeline]($pipeline_link)"
+            curl -X POST -H 'Content-Type: application/json' -d "{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"color\": $color}]}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi

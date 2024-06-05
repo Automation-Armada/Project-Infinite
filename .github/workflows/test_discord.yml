@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # Agregar el evento de workflow_dispatch para activación manual
 
 jobs:
   slack_notification:
@@ -26,6 +27,6 @@ jobs:
       uses: rtCamp/action-slack-notify@v3
       env:
         SLACK_CHANNEL: your_slack_channel
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Cambiar al nuevo secreto
       with:
         args: 'The workflow finished with ${{ job.status }} status'

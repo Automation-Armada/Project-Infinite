@@ -18,6 +18,7 @@ jobs:
 
       - name: Send status to Discord
         uses: sarisia/actions-status-discord@v1
+        if: always()
         env:
           DISCORD_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         with:

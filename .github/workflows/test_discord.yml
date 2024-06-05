@@ -60,7 +60,7 @@ jobs:
         run: |
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
-            mensaje="Se encontraron errores"
+            mensaje="¡Se encontraron errores!"
             color="16711680" # Rojo para errores
           elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
             mensaje="¡Advertencia encontrada!"

@@ -70,6 +70,6 @@ jobs:
             color=""
           fi
           if [[ "$mensaje" != "" ]]; then
-            message="{\"username\": \"Go Test\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color}]}"
-            curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+           contenido="${{ steps.leer-archivo.outputs.contenido }}"
+          curl -X POST -H 'Content-Type: application/json' -d "{\"content\": \"$contenido\"}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi

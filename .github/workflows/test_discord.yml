@@ -18,7 +18,7 @@ jobs:
       - name: Ejecutar Go Test y Guardar Errores
         run: |
           go test ./... > errores.txt 2>&1 || true
-          
+
       - name: Subir nuevo artefacto de errores
         if: always()
         uses: actions/upload-artifact@v2
@@ -26,11 +26,12 @@ jobs:
           name: errores
           path: errores.txt
 
-      - name: Establecer ruta del archivo de errores
-        run: echo "::set-env name=ERRORS_PATH::$(find ${{ github.workspace }} -name 'errores.txt')"
+      - name: Guardar ruta del archivo de errores en un archivo de entorno
+        run: echo "ERRORS_PATH=$(find ${{ github.workspace }} -name 'errores.txt')" >> errores_env.txt
 
       - name: Enviar Errores a Discord
         if: always()
         run: |
+          source errores_env.txt
           mensaje="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"Se encontraron errores durante la ejecución de los tests. Adjunto el archivo de errores.\", \"file\": {\"name\": \"errores.txt\", \"path\": \"$ERRORS_PATH\"}}"
           curl -X POST -H 'Content-Type: application/json' -d "$mensaje" "https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ"

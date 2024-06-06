@@ -23,6 +23,7 @@ jobs:
         run: |
           go test ./... > paso1_output.txt 2>&1 || true
           cat paso1_output.txt
+          ls -l
 
       - name: Guardar archivo como artefacto
         if: always()

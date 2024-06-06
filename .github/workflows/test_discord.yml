@@ -15,15 +15,14 @@ jobs:
         with:
           go-version: '1.17' 
 
-      - name: Inicializar módulo Go
-        run: go mod init nombre-del-modulo
+     # - name: Inicializar módulo Go
+     #   run: go mod init nombre-del-modulo
 
       - name: Ejecutar go test y guardar resultado
         id: paso1
         run: |
           go test ./... > paso1_output.txt 2>&1 || true
           cat paso1_output.txt
-
       - name: Guardar archivo como artefacto
         if: always()
         uses: actions/upload-artifact@v2
@@ -42,7 +41,6 @@ jobs:
         run: |
           contenido=$(cat paso1_output.txt)
           echo "::set-output name=contenido::$contenido"
-
       - name: Identificar errores y advertencias
         id: identificar-errores
         run: |
@@ -54,7 +52,6 @@ jobs:
           else
             echo "::set-output name=advertencia::false"
           fi
-
       - name: Enviar mensaje a Discord
         if: always()
         run: |

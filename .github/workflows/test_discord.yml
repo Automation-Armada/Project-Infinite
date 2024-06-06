@@ -60,11 +60,11 @@ jobs:
         run: |
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
-            mensaje="¡Se encontraron errores!"
+            mensaje="**¡Se encontraron errores!**\n\`\`\`\n$contenido\n\`\`\`"
             color="16711680" # Rojo para errores
             solucion="Intente revisar los archivos modificados para corregir los errores."
           elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
-            mensaje="¡Advertencia encontrada!"
+            mensaje="**¡Advertencia encontrada!**\n\`\`\`\n$contenido\n\`\`\`"
             color="16776960" # Amarillo para advertencias
             solucion="Puede ser útil revisar las advertencias para evitar posibles problemas en el futuro."
           else
@@ -74,6 +74,6 @@ jobs:
           fi
           if [[ "$mensaje" != "" ]]; then
             pipeline_url="https://github.com/Project-Infinite-2024/Project-Infinite/actions/runs/${{ github.run_id }}"
-            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color, \"fields\": [{\"name\": \"Pipeline\", \"value\": \"[Ir al pipeline]($pipeline_url)\"}, {\"name\": \"Sugerencia\", \"value\": \"$solucion\"}]}]}"
+            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"color\": $color, \"fields\": [{\"name\": \"Pipeline\", \"value\": \"[Ir al pipeline]($pipeline_url)\"}, {\"name\": \"Sugerencia\", \"value\": \"$solucion\"}]}]}"
             curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi

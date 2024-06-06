@@ -81,4 +81,4 @@ jobs:
           CHANNEL_ID="1247931364507123845"
           color="16711680"
           message="**Errores**"
-          curl -X POST -F "file=@$PHOTO_FILE" -F "content=$message" -F "embeds=[{\"color\":16711680" -F "$DISCORD_WEBHOOK"
+          curl -X POST -F "file=@$PHOTO_FILE" -F "content=$message" -F "embeds=[{\"color\":16711680\"}]" -F "$DISCORD_WEBHOOK"

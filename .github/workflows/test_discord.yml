@@ -17,7 +17,16 @@ jobs:
 
       - name: Ejecutar Go Test
         run: |
-          go test ./...
-            while IFS= read -r line; do
-            echo "::error::$line"
-          done < go_test_output.txt
+          go test ./... > go_test_output.txt 2>&1 || true
+
+      - name: Guardar errores en archivo
+        if: always()
+        run: |
+          cat go_test_output.txt | grep "error" > errores.txt || true
+
+      - name: Enviar mensaje a Discord
+        if: always()
+        run: |
+          errores=$(cat errores.txt)
+          message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"Errores en Go Test\", \"description\": \"$errores\", \"color\": 16711680}]}"
+          curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ

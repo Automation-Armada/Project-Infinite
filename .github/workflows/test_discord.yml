@@ -18,9 +18,13 @@ jobs:
       - name: Ejecutar Go Test y Guardar Errores
         run: |
           go test ./... > errores.txt 2>&1 || true
-        # Subir archivo de errores como artefacto
 
-      - name: Ejecutar Go Test y Guardar Errores 2
+      - name: Eliminar artefacto de errores existente
+        if: always()
+        run: |
+          rm -f errores.txt
+
+      - name: Subir nuevo artefacto de errores
         if: always()
         uses: actions/upload-artifact@v2
         with:

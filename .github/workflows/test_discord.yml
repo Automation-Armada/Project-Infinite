@@ -49,8 +49,10 @@ jobs:
           contenido=$(cat paso1_output.txt)
           if echo "$contenido" | grep -q '^go: warning:'; then
             echo "::set-output name=advertencia::true"
+            echo "::set-output name=paso-fallido::Identificar errores y advertencias"
           elif echo "$contenido" | grep -q '^go:' && ! echo "$contenido" | grep -q '^go: warning:'; then
             echo "::set-output name=error::true"
+            echo "::set-output name=paso-fallido::Identificar errores y advertencias"
           else
             echo "::set-output name=advertencia::false"
           fi
@@ -59,6 +61,7 @@ jobs:
         if: always()
         run: |
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
+          paso_fallido="${{ steps.identificar-errores.outputs.paso-fallido }}"
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
             mensaje="¡Se encontraron errores!"
             color="16711680" # Rojo para errores
@@ -70,9 +73,10 @@ jobs:
             color=""
           fi
           if [[ "$mensaje" != "" ]]; then
-            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color}]}"
+            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\nPaso que falló: $paso_fallido\", \"color\": $color}]}"
             curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi
+
 
 #      - name: Run script
  #       run: |

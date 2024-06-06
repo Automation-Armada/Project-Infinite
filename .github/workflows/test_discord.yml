@@ -82,4 +82,4 @@ jobs:
           PHOTO_FILE="./paso1_output.txt"  
           CHANNEL_ID="1247931364507123845"   
           message="Errores"
-          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"$message\", \"file\": \"@$PHOTO_FILE\"}" $TOKEN
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"$message\", \"file\": \"@$PHOTO_FILE\"}" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ

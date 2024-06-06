@@ -10,21 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ejecutar Go Test sin instalación
-        id: ejecutar-go-test
-        run: |
-          go test ./... > go_test_output.txt 2>&1 || true
-          cat go_test_output.txt
-        # Guardar archivo de salida como artefacto con un nombre único
-        if: always()
-        uses: actions/upload-artifact@v2
+      - name: Configurar Go
+        uses: actions/setup-go@v2
         with:
-          name: go_test_output_${{ github.run_id }}
-          path: go_test_output.txt
+          go-version: '1.17'
 
-      - name: Enviar mensaje a Discord
-        if: always()
+      - name: Ejecutar Go Test
         run: |
-          archivo_output=$(cat go_test_output.txt)
-          message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"Resultado de Go Test\", \"description\": \"\", \"color\": 16776960, \"archivo_output\": \"$archivo_output\"}]}"
-          curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+          go test ./...
+            while IFS= read -r line; do
+            echo "::error::$line"
+          done < go_test_output.txt

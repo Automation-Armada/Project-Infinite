@@ -10,43 +10,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setear orden inicial
+        id: set-orden
+        run: echo "::set-output name=orden::0"
+
       - name: Instalar Go
+        id: instalar-go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.17' 
-
-     # - name: Inicializar módulo Go
-     #   run: go mod init nombre-del-modulo
-
-      - name: Ejecutar go test y guardar resultado
-        id: paso1
+          go-version: '1.17'
         run: |
-          go test ./... > paso1_output.txt 2>&1 || true
-          cat paso1_output.txt
+          # Ejecutar las operaciones necesarias
+          # Guardar el resultado en el archivo correspondiente
+          echo "Resultado de Instalar Go" > paso${{ steps.set-orden.outputs.orden }}_output.txt
 
       - name: Guardar archivo como artefacto
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: all_steps_output
-          path: paso1_output.txt
+          name: all_steps_output_${{ steps.set-orden.outputs.orden }}
+          path: paso${{ steps.set-orden.outputs.orden }}_output.txt
 
       - name: Descargar artefacto
         if: always()
         uses: actions/download-artifact@v2
         with:
-          name: all_steps_output
-          
+          name: all_steps_output_${{ steps.set-orden.outputs.orden }}
+
+      - name: Guardar resultado de descarga en archivo
+        run: |
+          ls > descarga_artifact_output_${{ steps.set-orden.outputs.orden }}.txt
+
       - name: Leer contenido del archivo
         id: leer-archivo
         run: |
-          contenido=$(cat paso1_output.txt)
+          contenido=$(cat paso${{ steps.set-orden.outputs.orden }}_output.txt)
           echo "::set-output name=contenido::$contenido"
 
       - name: Identificar errores y advertencias
         id: identificar-errores
         run: |
-          contenido=$(cat paso1_output.txt)
+          contenido=$(cat paso${{ steps.set-orden.outputs.orden }}_output.txt)
           if echo "$contenido" | grep -q '^go: warning:'; then
             echo "::set-output name=advertencia::true"
           elif echo "$contenido" | grep -q '^go:' && ! echo "$contenido" | grep -q '^go: warning:'; then
@@ -59,6 +63,7 @@ jobs:
         if: always()
         run: |
           contenido="${{ steps.leer-archivo.outputs.contenido }}"
+          archivo_output=$(cat paso${{ steps.set-orden.outputs.orden }}_output.txt)
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
             mensaje="¡Se encontraron errores!"
             color="16711680" # Rojo para errores
@@ -70,6 +75,6 @@ jobs:
             color=""
           fi
           if [[ "$mensaje" != "" ]]; then
-            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color}]}"
+            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color, \"archivo_output\": \"$archivo_output\"}]}"
             curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
           fi

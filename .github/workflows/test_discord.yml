@@ -16,10 +16,13 @@ jobs:
 
       - name: Instalar Go
         id: instalar-go
+        if: always()
         uses: actions/setup-go@v2
         with:
           go-version: '1.17'
+
       - name: Ejecutar comando de instalación de Go
+        if: always()
         run: |
           # Ejecutar las operaciones necesarias
           # Guardar el resultado en el archivo correspondiente
@@ -39,16 +42,19 @@ jobs:
           name: all_steps_output_${{ steps.set-orden.outputs.orden }}
 
       - name: Guardar resultado de descarga en archivo
+        if: always()
         run: |
           ls > descarga_artifact_output_${{ steps.set-orden.outputs.orden }}.txt
 
       - name: Leer contenido del archivo
+        if: always()
         id: leer-archivo
         run: |
           contenido=$(cat paso${{ steps.set-orden.outputs.orden }}_output.txt)
           echo "::set-output name=contenido::$contenido"
 
       - name: Identificar errores y advertencias
+        if: always()
         id: identificar-errores
         run: |
           contenido=$(cat paso${{ steps.set-orden.outputs.orden }}_output.txt)

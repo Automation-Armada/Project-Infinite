@@ -20,10 +20,12 @@ jobs:
           go test ./... > go_test_output.txt 2>&1 || true
 
       - name: Guardar errores en archivo
-        if: always()
+        if: always()  
         run: |
           cat go_test_output.txt | grep "error" > errores.txt || true
         # Guardar errores como artefacto
+      - name: Errores
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: errores

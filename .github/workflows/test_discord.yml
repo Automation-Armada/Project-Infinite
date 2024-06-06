@@ -78,6 +78,7 @@ jobs:
         run: |
           DISCORD_WEBHOOK="${{ secrets.DISCORD_WEBHOOK }}"
           PHOTO_FILE="./paso1_output.txt"  
-          CHANNEL_ID="1247931364507123845"   
+          CHANNEL_ID="1247931364507123845"
+          color="16711680"
           message="**Errores**"
-          curl -X POST -F "file=@$PHOTO_FILE" -F "content=$message" "$DISCORD_WEBHOOK"
+          curl -X POST -F "file=@$PHOTO_FILE" -F "content=$message" -F "embeds=[{\"color\":16711680" -F "$DISCORD_WEBHOOK"

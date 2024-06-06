@@ -19,11 +19,6 @@ jobs:
         run: |
           go test ./... > errores.txt 2>&1 || true
 
-      - name: Eliminar artefacto de errores existente
-        if: always()
-        run: |
-          rm -f errores.txt
-
       - name: Subir nuevo artefacto de errores
         if: always()
         uses: actions/upload-artifact@v2
@@ -31,15 +26,9 @@ jobs:
           name: errores
           path: errores.txt
 
-      - name: Leer archivo de errores
-        id: leer-errores
-        run: |
-          errores=$(cat errores.txt)
-          echo "::set-output name=errores::$errores"
-
       - name: Enviar Errores a Discord
         if: always()
         run: |
-          errores="${{ steps.leer-errores.outputs.errores }}"
+          errores=$(cat errores.txt)
           mensaje="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"Se encontraron errores durante la ejecución de los tests:\n\n$errores\"}"
           curl -X POST -H 'Content-Type: application/json' -d "$mensaje" "https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ"

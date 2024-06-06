@@ -15,8 +15,8 @@ jobs:
         with:
           go-version: '1.17' 
 
-     # - name: Inicializar módulo Go
-     #   run: go mod init nombre-del-modulo
+      - name: Inicializar módulo Go
+        run: go mod init nombre-del-modulo
 
       - name: Ejecutar go test y guardar resultado
         id: paso1

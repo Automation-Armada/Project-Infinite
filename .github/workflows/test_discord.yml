@@ -75,11 +75,9 @@ jobs:
           fi
 
       - name: Run script
-        env:
-          DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
         run: |
-          TOKEN="${DISCORD_WEBHOOKS}"
+          DISCORD_WEBHOOKS="${{ secrets.DISCORD_WEBHOOKS }}"
           PHOTO_FILE="./paso1_output.txt"  
           CHANNEL_ID="1247931364507123845"   
           message="Errores"
-          curl -X POST -F "file=@$PHOTO_FILE" -F "content=$message" $TOKEN
+          curl -X POST -F "file=@$PHOTO_FILE" -F "content=$message" "$DISCORD_WEBHOOKS"

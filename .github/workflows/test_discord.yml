@@ -49,10 +49,14 @@ jobs:
           contenido=$(cat paso1_output.txt)
           if echo "$contenido" | grep -q '^go: warning:'; then
             echo "::set-output name=advertencia::true"
+            solucion="Puede revisar las advertencias para evitar posibles problemas en el futuro. Asegúrese de atender cualquier advertencia que pueda surgir."
           elif echo "$contenido" | grep -q '^go:' && ! echo "$contenido" | grep -q '^go: warning:'; then
             echo "::set-output name=error::true"
+            solucion="Revise los errores encontrados y corrija el código correspondiente. Asegúrese de ejecutar nuevamente las pruebas después de realizar las correcciones."
           else
-            echo "::set-output name=advertencia::false"
+            mensaje=""
+            color=""
+            solucion=""
           fi
 
       - name: Enviar mensaje a Discord
@@ -62,15 +66,12 @@ jobs:
           if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
             mensaje="¡Se encontraron errores!"
             color="16711680" # Rojo para errores
-            solucion="Intente revisar los archivos modificados para corregir los errores."
           elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
             mensaje="¡Advertencia encontrada!"
             color="16776960" # Amarillo para advertencias
-            solucion="Puede ser útil revisar las advertencias para evitar posibles problemas en el futuro."
           else
             mensaje=""
             color=""
-            solucion=""
           fi
           if [[ "$mensaje" != "" ]]; then
             pipeline_url="https://github.com/Project-Infinite-2024/Project-Infinite/actions/runs/${{ github.run_id }}"

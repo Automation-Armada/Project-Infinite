@@ -1,4 +1,4 @@
-name: Test Discord
+name: Ejecutar Go Test y Enviar Errores a Discord
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master  
 
 jobs:
-  enviar-mensaje:
+  enviar-errores:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,24 +15,27 @@ jobs:
         with:
           go-version: '1.17'
 
-      - name: Ejecutar Go Test
+      - name: Ejecutar Go Test y Guardar Errores
         run: |
-          go test ./... > go_test_output.txt 2>&1 || true
+          go test ./... > errores.txt 2>&1 || true
+        # Subir archivo de errores como artefacto
 
-      - name: Guardar errores en archivo
-        if: always()  
-        run: |
-          cat go_test_output.txt | grep "error" > errores.txt || true
-        # Guardar errores como artefacto
-      - name: Errores
+      - name: Ejecutar Go Test y Guardar Errores 2
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: errores
           path: errores.txt
 
-      - name: Enviar mensaje a Discord
+      - name: Leer archivo de errores
+        id: leer-errores
+        run: |
+          errores=$(cat errores.txt)
+          echo "::set-output name=errores::$errores"
+
+      - name: Enviar Errores a Discord
         if: always()
         run: |
-          curl -X POST -H 'Content-Type:mensaje="{\"username\": \"Tu_Bot\", \"avatar_url\": \"URL_de_la_imagen_del_avatar_de_tu_bot\", \"embeds\": [{\"title\": \"Errores en Go Test\", \"description\": \"Errores encontrados durante la ejecución de los tests\", \"color\": 16711680, \"fields\": [{\"name\": \"Errores\", \"value\": \"Verifica los errores en el siguiente enlace:\", \"inline\": false}], \"footer\": {\"text\": \"Generado por GitHub Actions\"}}]}"
-          curl -X POST -H 'Content-Type: application/json' -d "$mensaje" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+          errores="${{ steps.leer-errores.outputs.errores }}"
+          mensaje="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"Se encontraron errores durante la ejecución de los tests:\n\n$errores\"}"
+          curl -X POST -H 'Content-Type: application/json' -d "$mensaje" "https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ"

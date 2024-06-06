@@ -1,4 +1,4 @@
-name: Ejecutar Go Test y Enviar Errores a Discord
+name: Test Discord
 
 on:
   push:
@@ -6,32 +6,70 @@ on:
       - master  
 
 jobs:
-  enviar-errores:
+  enviar-mensaje:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Configurar Go
+      - name: Instalar Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.17'
+          go-version: '1.17' 
 
-      - name: Ejecutar Go Test y Guardar Errores
+     # - name: Inicializar módulo Go
+     #   run: go mod init nombre-del-modulo
+
+      - name: Ejecutar go test y guardar resultado
+        id: paso1
         run: |
-          go test ./... > errores.txt 2>&1 || true
+          go test ./... > paso1_output.txt 2>&1 || true
+          cat paso1_output.txt
 
-      - name: Subir nuevo artefacto de errores
+      - name: Guardar archivo como artefacto
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: errores
-          path: errores.txt
+          name: all_steps_output
+          path: paso1_output.txt
 
-      - name: Guardar ruta del archivo de errores en un archivo de entorno
-        run: echo "ERRORS_PATH=$(find ${{ github.workspace }} -name 'errores.txt')" >> errores_env.txt
+      - name: Descargar artefacto
+        if: always()
+        uses: actions/download-artifact@v2
+        with:
+          name: all_steps_output
+          
+      - name: Leer contenido del archivo
+        id: leer-archivo
+        run: |
+          contenido=$(cat paso1_output.txt)
+          echo "::set-output name=contenido::$contenido"
 
-      - name: Enviar Errores a Discord
+      - name: Identificar errores y advertencias
+        id: identificar-errores
+        run: |
+          contenido=$(cat paso1_output.txt)
+          if echo "$contenido" | grep -q '^go: warning:'; then
+            echo "::set-output name=advertencia::true"
+          elif echo "$contenido" | grep -q '^go:' && ! echo "$contenido" | grep -q '^go: warning:'; then
+            echo "::set-output name=error::true"
+          else
+            echo "::set-output name=advertencia::false"
+          fi
+
+      - name: Enviar mensaje a Discord
         if: always()
         run: |
-          source errores_env.txt
-          mensaje="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"content\": \"Se encontraron errores durante la ejecución de los tests. Adjunto el archivo de errores.\", \"file\": {\"name\": \"errores.txt\", \"path\": \"$ERRORS_PATH\"}}"
-          curl -X POST -H 'Content-Type: application/json' -d "$mensaje" "https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ"
+          contenido="${{ steps.leer-archivo.outputs.contenido }}"
+          if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
+            mensaje="¡Se encontraron errores!"
+            color="16711680" # Rojo para errores
+          elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
+            mensaje="¡Advertencia encontrada!"
+            color="16776960" # Amarillo para advertencias
+          else
+            mensaje=""
+            color=""
+          fi
+          if [[ "$mensaje" != "" ]]; then
+            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"description\": \"$contenido\", \"color\": $color}]}"
+            curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+          fi

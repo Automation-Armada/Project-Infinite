@@ -34,5 +34,4 @@ jobs:
       - name: Enviar mensaje a Discord
         if: always()
         run: |
-          mensaje="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"Errores en Go Test\", \"description\": \"Errores encontrados durante la ejecución de los tests\", \"color\": 16711680, \"fields\": [{\"name\": \"Errores\", \"value\": \"Verifica los errores en el siguiente enlace:\", \"inline\": false}], \"footer\": {\"text\": \"Generado por GitHub Actions\"}}]}"
           curl -X POST -H 'Content-Type: application/json' -d "$mensaje" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ

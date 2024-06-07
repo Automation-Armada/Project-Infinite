@@ -68,7 +68,7 @@ npm -v   # y presione Enter. Debería ver la versión de npm instalada.
 Clonar este repositorio:
 
 ```bash
-https://github.com/Project-Infinite-2024/Project-Infinite.git
+https://github.com/Automation-Armada/Project-Infinite.git
 ```
  Navegar hasta la carpeta del proyecto:
 

@@ -4,7 +4,7 @@
             "snippetInterface": "async-await"
         },
         "paths": [
-            "src/test/features/Test_Login.feature"
+            "src/test/features/Practice.feature"
             
             
         ],

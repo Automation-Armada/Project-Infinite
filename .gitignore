@@ -1,11 +1,11 @@
 # Ignorar directorios
-node_modules/
-test-results/
+node_modules
+test-results
 playwright-report/
 blob-report/
 playwright/.cache/
-assets/
-features/
+assets
+features
 # Ignorar archivos o tipos de archivos específicos
-test-result/
+test-result
 index.html

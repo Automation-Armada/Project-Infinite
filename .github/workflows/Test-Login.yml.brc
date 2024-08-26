@@ -1,70 +1,55 @@
-name: Test_Login
+name: Net
 
 on:
-  push:
-    branches:
-      - master
+  push: 
+    branches: [master]
   pull_request:
-    branches:
-      - master
+    branches: [master]
+
+permissions:
+   contents: read
+   issues: read
+   checks: write
+   pull-requests: write
+
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        accountIndex:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          - 9
+  build:
 
+
+    runs-on: windows-latest-1
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+       dotnet-version: 8.0.x
+    - name: update NuGet source
+      run: nuget sources update -Name Artifactory -UserNmae ${{ secret.ARTIFACTORY_USER }} -Password ${{ secret.ARTIFACTORY_PASSWORD }} -ConfigFile ${{ github.workspace }}/nuget.config
+    - name: Nuget Restore
+      run: nuget restore FIS.Investran.Suite.WebAuthentication.sln -ConfigFile ${{ github.workspace }}/nuget.config
+    - name: Build solution
+      run: msbuild FIS.Investran.Suite.WebAuthentication.sln /p:configuration=Realese
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Cache Playwright dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.js') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
-      - name: Install Playwright
-        run: npx playwright install
-      
-      - name: Run tests
-        run: npm test --profile default --tags "@login" --format json:test-results/cucumber_report.json --format html:test-results/cucumber-report.html --matrix-account-index ${{ matrix.accountIndex }}
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-report-${{ matrix.os }}
-          path: |
-            ./assets
-            ./features
-            ./test-result
-            ./test-results
-            index.html
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-results
-          path: test-results
+    - name: Pack .nuspec files
+      continue-on-error: true
+      run: |
+         Get-Childtem -Path Nuget\* -File | ForEach-Object {
+           Write-Output "Processing $($_.FullName)"
+           try {
+             nuget pack "$($_.FullName)" -ConfigFile C:\a\PCS-webAuthentication/nuget.config -OutputDirectory ${{ github.workspace }}\out
+           }
+           cath {
+             write-Output "Failed to process $($_.FullName)"
+            }
+          }
+        shell: pwsh
+      - name: Nuget SetApiKey
+        run: nuget setapikey ${{ secrets.ARTIFACTORY_USER }}:${{ secrets.ARTIFACTORY_PASSWORD }} -Source ${{ vars.ARTIFACTORY_PUSG_PATH }}
+      - Name: Push dotnet artifactory
+        run: nuget push ${{ github.workspace }}\out\* -Source ${{ vars.ARTIFACTORY_PUSH_PATH }}
+        

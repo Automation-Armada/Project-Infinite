@@ -10,7 +10,7 @@ on:
 
 
 jobs:
-  enviar-mensaje:
+  test_commit:
     runs-on: ubuntu-latest
 
     steps:

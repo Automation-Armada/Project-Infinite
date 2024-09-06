@@ -1,4 +1,4 @@
-name: Test Discord
+name: Test 
 
 on:
   push:

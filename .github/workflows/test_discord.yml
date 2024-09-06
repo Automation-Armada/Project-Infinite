@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Asegura que se descargue todo el historial de Git
 
       - name: Display the commit message and updated files
         run: |

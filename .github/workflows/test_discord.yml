@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Display the commit message
+        run: git log -1 --pretty=format:"%s"
+        
       - name: Instalar Go
         uses: actions/setup-go@v2
         with:

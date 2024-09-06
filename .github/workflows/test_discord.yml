@@ -13,74 +13,79 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Display the commit message
-        run: git log -1 --pretty=format:"%s"
+      - name: Display the commit message and updated files
+        run: |
+          echo "Commit message:"
+          git log -1 --pretty=format:"%s"
+          echo ""
+          echo "Updated files:"
+          git diff-tree --no-commit-id --name-only -r $(git log -1 --format="%H")
         
-      - name: Instalar Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '1.17' 
+      # - name: Instalar Go
+      #   uses: actions/setup-go@v2
+      #   with:
+      #     go-version: '1.17' 
 
-      - name: Inicializar módulo Go
-        run: go mod init nombre-del-modulo
+      # - name: Inicializar módulo Go
+      #   run: go mod init nombre-del-modulo
 
-      - name: Ejecutar go test y guardar resultado
-        id: paso1
-        run: |
-          go test ./... > paso1_output.txt 2>&1 || true
-          cat paso1_output.txt
+      # - name: Ejecutar go test y guardar resultado
+      #   id: paso1
+      #   run: |
+      #     go test ./... > paso1_output.txt 2>&1 || true
+      #     cat paso1_output.txt
 
-      - name: Guardar archivo como artefacto
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: all_steps_output
-          path: paso1_output.txt
+      # - name: Guardar archivo como artefacto
+      #   if: always()
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: all_steps_output
+      #     path: paso1_output.txt
 
-      - name: Descargar artefacto
-        if: always()
-        uses: actions/download-artifact@v2
-        with:
-          name: all_steps_output
+      # - name: Descargar artefacto
+      #   if: always()
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: all_steps_output
           
-      - name: Leer contenido del archivo
-        id: leer-archivo
-        run: |
-          contenido=$(cat paso1_output.txt)
-          echo "::set-output name=contenido::$contenido"
+      # - name: Leer contenido del archivo
+      #   id: leer-archivo
+      #   run: |
+      #     contenido=$(cat paso1_output.txt)
+      #     echo "::set-output name=contenido::$contenido"
 
-      - name: Identificar errores y advertencias
-        id: identificar-errores
-        run: |
-          contenido=$(cat paso1_output.txt)
-          if echo "$contenido" | grep -q '^go: warning:'; then
-            echo "::set-output name=advertencia::true"
-          elif echo "$contenido" | grep -q '^go:' && ! echo "$contenido" | grep -q '^go: warning:'; then
-            echo "::set-output name=error::true"
-          else
-            echo "::set-output name=advertencia::false"
-          fi
+      # - name: Identificar errores y advertencias
+      #   id: identificar-errores
+      #   run: |
+      #     contenido=$(cat paso1_output.txt)
+      #     if echo "$contenido" | grep -q '^go: warning:'; then
+      #       echo "::set-output name=advertencia::true"
+      #     elif echo "$contenido" | grep -q '^go:' && ! echo "$contenido" | grep -q '^go: warning:'; then
+      #       echo "::set-output name=error::true"
+      #     else
+      #       echo "::set-output name=advertencia::false"
+      #     fi
 
-      - name: Enviar mensaje a Discord
-        if: always()
-        run: |
-          contenido="${{ steps.leer-archivo.outputs.contenido }}"
-          if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
-            mensaje="**¡Se encontraron errores!**\n\`\`\`\n$contenido\n\`\`\`"
-            color="16711680" 
-            solucion="Intente revisar los archivos modificados para corregir los errores."
-          elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
-            mensaje="**¡Advertencia encontrada!**\n\`\`\`\n$contenido\n\`\`\`"
-            color="16776960" 
-            solucion="Puede ser útil revisar las advertencias para evitar posibles problemas en el futuro."
-          else
-            mensaje=""
-            color=""
-            solucion=""
-          fi
-                if [[ "$mensaje" != "" ]]; then
-            repo_url="https://github.com/$GITHUB_REPOSITORY"
-            pipeline_url="$repo_url/actions/runs/$GITHUB_RUN_ID"
-            message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"color\": $color, \"fields\": [{\"name\": \"Pipeline\", \"value\": \"[Ir al pipeline]($pipeline_url)\"}, {\"name\": \"Sugerencia\", \"value\": \"$solucion\"}]}]}"
-            curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
-          fi
+      # - name: Enviar mensaje a Discord
+      #   if: always()
+      #   run: |
+      #     contenido="${{ steps.leer-archivo.outputs.contenido }}"
+      #     if [[ "${{ steps.identificar-errores.outputs.error }}" == "true" ]]; then
+      #       mensaje="**¡Se encontraron errores!**\n\`\`\`\n$contenido\n\`\`\`"
+      #       color="16711680" 
+      #       solucion="Intente revisar los archivos modificados para corregir los errores."
+      #     elif [[ "${{ steps.identificar-errores.outputs.advertencia }}" == "true" ]]; then
+      #       mensaje="**¡Advertencia encontrada!**\n\`\`\`\n$contenido\n\`\`\`"
+      #       color="16776960" 
+      #       solucion="Puede ser útil revisar las advertencias para evitar posibles problemas en el futuro."
+      #     else
+      #       mensaje=""
+      #       color=""
+      #       solucion=""
+      #     fi
+      #           if [[ "$mensaje" != "" ]]; then
+      #       repo_url="https://github.com/$GITHUB_REPOSITORY"
+      #       pipeline_url="$repo_url/actions/runs/$GITHUB_RUN_ID"
+      #       message="{\"username\": \"GitHub Actions\", \"avatar_url\": \"https://github.com/github.png\", \"embeds\": [{\"title\": \"$mensaje\", \"color\": $color, \"fields\": [{\"name\": \"Pipeline\", \"value\": \"[Ir al pipeline]($pipeline_url)\"}, {\"name\": \"Sugerencia\", \"value\": \"$solucion\"}]}]}"
+      #       curl -X POST -H 'Content-Type: application/json' -d "$message" https://discord.com/api/webhooks/1247924987877392495/EC0Ahcm-VSjZA21AfPAM0DrE2qha9iiCvClGEHjZNyk7U_abysiEPrbnhT4jaOtKqlMZ
+      #     fi
